@@ -5,6 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 
 SplashScreen.preventAutoHideAsync()
 import Button from "@/components/Button";
+import { transform } from "@babel/core";
 
 export default function Index() {
   const [loaded, error] = useFonts({
@@ -41,7 +42,7 @@ export default function Index() {
       <Text style={styles.chatbot_description}>
         "Selamat datang! Asisten cerdas siap membantu. Tekan Get Started untuk memulai."
       </Text>
-      <Button title="Get Started" />
+      <Button title="Get Started" style={{ top: 20 }} />
     </View>
   );
 }
@@ -75,8 +76,8 @@ const styles = StyleSheet.create({
   chatbot_description: {
     fontSize: 16,
     textAlign: 'center', // Menengahkan teks
-    paddingHorizontal: 20, // Memberi jarak kiri dan kanan
-    flexWrap: 'wrap', // Membungkus teks agar tidak melampaui lebar layar
+    paddingHorizontal: 35,
+    flexWrap: 'wrap',
     fontFamily: 'Outfit-Medium',
   }
 });

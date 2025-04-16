@@ -1,15 +1,16 @@
-import { Text, View, StyleSheet } from "react-native";
-import { useEffect } from "react";
+import React, { useEffect } from 'react';
+import { Text, View, StyleSheet, ViewStyle } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
-SplashScreen.preventAutoHideAsync()
+SplashScreen.preventAutoHideAsync();
 
 interface TitleButton {
-    title?: string
+    title?: string;
+    style?: ViewStyle;
 }
 
-const Button = ({ title }: TitleButton) => {
+const Button: React.FC<TitleButton> = ({ title, style }) => {
     const [loaded, error] = useFonts({
         'Outfit-Black': require('@/assets/fonts/Outfit,Poppins/Outfit/static/Outfit-Black.ttf'),
         'Outfit-Bold': require('@/assets/fonts/Outfit,Poppins/Outfit/static/Outfit-Bold.ttf'),
@@ -33,24 +34,21 @@ const Button = ({ title }: TitleButton) => {
     }
 
     return (
-        <View style={styles.wrapper}>
-            {/* Shadow hitam pekat di bawah tombol */}
+        <View style={[styles.wrapper, style]}>
             <View style={styles.shadow_button}>
                 <Text style={styles.hidden_text}>{title}</Text>
             </View>
 
-            {/* Tombol utama */}
             <View style={styles.button_style}>
                 <Text style={styles.text_style}>{title}</Text>
             </View>
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     wrapper: {
         position: 'relative',
-        top : 20,
     },
     shadow_button: {
         position: 'absolute',
@@ -63,21 +61,21 @@ const styles = StyleSheet.create({
         borderColor: '#000',
     },
     hidden_text: {
-        opacity: 0,
+        opacity: 0, // Teks tersembunyi untuk shadow
         fontSize: 30,
-        fontFamily: "Outfit-Medium",
+        fontFamily: 'Outfit-Medium',
     },
     button_style: {
         padding: 14,
         borderRadius: 15,
-        backgroundColor: "#ffdc00",
+        backgroundColor: '#ffdc00',
         borderWidth: 4,
         borderColor: '#000000',
     },
     text_style: {
-        fontFamily: "Outfit-Medium",
+        fontFamily: 'Outfit-Medium',
         fontSize: 30,
-    }
+    },
 });
 
 export default Button;
