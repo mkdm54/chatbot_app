@@ -73,9 +73,9 @@ const styles = StyleSheet.create({
         left: 7,
         padding: 14,
         borderRadius: 15,
-        backgroundColor: '#000',
+        backgroundColor: '#ccc8c5',
         borderWidth: 4,
-        borderColor: '#000',
+        borderColor: '#ccc8c5',
     },
     hidden_text: {
         opacity: 0,
@@ -85,11 +85,12 @@ const styles = StyleSheet.create({
     button_style: {
         padding: 14,
         borderRadius: 15,
-        backgroundColor: '#ffdc00',
+        backgroundColor: '#ffe854', 
         borderWidth: 4,
-        borderColor: '#000000',
+        borderColor: '#6a6054',
     },
     text_style: {
+        color: '#6a6054',
         fontFamily: 'Outfit-Medium',
         fontSize: 30,
     },

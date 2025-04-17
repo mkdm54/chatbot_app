@@ -1,11 +1,11 @@
 import { Text, View, StyleSheet, Image } from "react-native";
 import { Stack, Link} from 'expo-router';
 import { useEffect } from "react";
-import * as SplashScreen from 'expo-splash-screen';
 import useCustomFonts from "@/src/hooks/useCustomFonts";
+import * as SplashScreen from 'expo-splash-screen';
+import Button from "@/components/Button";
 
 SplashScreen.preventAutoHideAsync()
-import Button from "@/components/Button";
 
 export default function Index() {
   const [loaded, error] = useCustomFonts()
@@ -61,22 +61,24 @@ const styles = StyleSheet.create({
   img_container: {
     width: 250,
     height: 250,
-    backgroundColor: "#ffdc00",
+    backgroundColor: "#ffe854",
     borderRadius: 200,
     borderWidth: 5,
-    borderColor: '#000000',
+    borderColor: '#6a6054',
     justifyContent: 'center',
     alignItems: 'center'
   },
   img_style: {
     width: 250,
     height: 250,
-    resizeMode: 'contain'
+    resizeMode: 'contain',
+    borderColor : '#6a6054',
   },
   chatbot_title: {
     fontFamily: 'Outfit-Bold',
     fontSize: 40,
     textTransform: "uppercase",
+    color: '#6a6054',
   },
   chatbot_description: {
     fontSize: 16,
