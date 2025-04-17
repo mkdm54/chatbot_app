@@ -40,7 +40,7 @@ export default function Index() {
       </View>
       <Text style={styles.chatbot_title}>nova</Text>
       <Text style={styles.chatbot_description}>
-        "Selamat datang! Asisten cerdas siap membantu. Tekan Get Started untuk memulai."
+        Selamat datang! NOVA siap membantu. Click Get Started untuk memulai.
       </Text>
       <Link href={{ pathname: "/chatbot" }} push asChild>
         <Button
