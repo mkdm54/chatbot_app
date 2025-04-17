@@ -42,7 +42,11 @@ export default function Index() {
       <Text style={styles.chatbot_description}>
         "Selamat datang! Asisten cerdas siap membantu. Tekan Get Started untuk memulai."
       </Text>
-      <Button title="Get Started" style={{ top: 20 }} />
+      <Button
+        title="Get Started"
+        style={{ top: 20, alignSelf: 'center' }}
+        onPress={() => alert("Tombol diklik!")}
+      />
     </View>
   );
 }

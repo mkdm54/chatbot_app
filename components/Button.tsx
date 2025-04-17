@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Text, View, StyleSheet, ViewStyle } from 'react-native';
+import { Text, View, StyleSheet, ViewStyle, TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
@@ -8,9 +8,10 @@ SplashScreen.preventAutoHideAsync();
 interface TitleButton {
     title?: string;
     style?: ViewStyle;
+    onPress?: () => void; // Tambahkan onPress
 }
 
-const Button: React.FC<TitleButton> = ({ title, style }) => {
+const Button: React.FC<TitleButton> = ({ title, style, onPress }) => {
     const [loaded, error] = useFonts({
         'Outfit-Black': require('@/assets/fonts/Outfit,Poppins/Outfit/static/Outfit-Black.ttf'),
         'Outfit-Bold': require('@/assets/fonts/Outfit,Poppins/Outfit/static/Outfit-Bold.ttf'),
@@ -34,7 +35,7 @@ const Button: React.FC<TitleButton> = ({ title, style }) => {
     }
 
     return (
-        <View style={[styles.wrapper, style]}>
+        <TouchableOpacity style={[styles.wrapper, style]} onPress={onPress} activeOpacity={1}>
             <View style={styles.shadow_button}>
                 <Text style={styles.hidden_text}>{title}</Text>
             </View>
@@ -42,7 +43,7 @@ const Button: React.FC<TitleButton> = ({ title, style }) => {
             <View style={styles.button_style}>
                 <Text style={styles.text_style}>{title}</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
         borderColor: '#000',
     },
     hidden_text: {
-        opacity: 0, // Teks tersembunyi untuk shadow
+        opacity: 0,
         fontSize: 30,
         fontFamily: 'Outfit-Medium',
     },
