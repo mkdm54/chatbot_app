@@ -1,24 +1,14 @@
 import { Text, View, StyleSheet, Image } from "react-native";
-import { Link } from 'expo-router';
+import { Stack, Link} from 'expo-router';
 import { useEffect } from "react";
-import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import useCustomFonts from "@/src/hooks/useCustomFonts";
 
 SplashScreen.preventAutoHideAsync()
 import Button from "@/components/Button";
 
 export default function Index() {
-  const [loaded, error] = useFonts({
-    'Outfit-Black': require('@/assets/fonts/Outfit,Poppins/Outfit/static/Outfit-Black.ttf'),
-    'Outfit-Bold': require('@/assets/fonts/Outfit,Poppins/Outfit/static/Outfit-Bold.ttf'),
-    'Outfit-ExtraBold': require('@/assets/fonts/Outfit,Poppins/Outfit/static/Outfit-ExtraBold.ttf'),
-    'Outfit-ExtraLight': require('@/assets/fonts/Outfit,Poppins/Outfit/static/Outfit-ExtraLight.ttf'),
-    'Outfit-Light': require('@/assets/fonts/Outfit,Poppins/Outfit/static/Outfit-Light.ttf'),
-    'Outfit-Medium': require('@/assets/fonts/Outfit,Poppins/Outfit/static/Outfit-Medium.ttf'),
-    'Outfit-Regular': require('@/assets/fonts/Outfit,Poppins/Outfit/static/Outfit-Regular.ttf'),
-    'Outfit-SemiBold': require('@/assets/fonts/Outfit,Poppins/Outfit/static/Outfit-SemiBold.ttf'),
-    'Outfit-Thin': require('@/assets/fonts/Outfit,Poppins/Outfit/static/Outfit-Thin.ttf'),
-  });
+  const [loaded, error] = useCustomFonts()
 
   useEffect(() => {
     if (loaded || error) {
@@ -31,6 +21,16 @@ export default function Index() {
   }
   return (
     <View style={styles.container}>
+      <Stack.Screen
+        options={{
+          title: '',
+          headerStyle: { backgroundColor: '#ffffff' },
+          headerTintColor: '#ffffff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
       <View style={styles.img_container}>
         <Image
           // image by https://www.vecteezy.com/vector-art/23093053-artificial-intelligence-robot-chatbot-vector-ai-chatbot-concept-colored-icon
@@ -43,10 +43,10 @@ export default function Index() {
         "Selamat datang! Asisten cerdas siap membantu. Tekan Get Started untuk memulai."
       </Text>
       <Link href={{ pathname: "/chatbot" }} push asChild>
-      <Button
-        title="Get Started"
-        style={{ top: 20, alignSelf: 'center' }}
-      />
+        <Button
+          title="Get Started"
+          style={{ top: 20, alignSelf: 'center' }}
+        />
       </Link>
     </View>
   );
