@@ -1,5 +1,5 @@
-import React, { useEffect, forwardRef, } from 'react';
-import { Text, View, StyleSheet, ViewStyle, TouchableOpacity } from 'react-native';
+import React, { useEffect, forwardRef, useState } from 'react';
+import { Text, View, StyleSheet, ViewStyle, Animated, Pressable } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
@@ -11,7 +11,7 @@ interface TitleButton {
     onPress?: () => void;
 }
 
-const Button = forwardRef<React.ElementRef<typeof TouchableOpacity>, TitleButton>(({ title, style, onPress }, ref) => {
+const Button = forwardRef<React.ElementRef<typeof Animated.View>, TitleButton>(({ title, style, onPress }, ref) => {
     const [loaded, error] = useFonts({
         'Outfit-Black': require('@/assets/fonts/Outfit,Poppins/Outfit/static/Outfit-Black.ttf'),
         'Outfit-Bold': require('@/assets/fonts/Outfit,Poppins/Outfit/static/Outfit-Bold.ttf'),
@@ -34,15 +34,43 @@ const Button = forwardRef<React.ElementRef<typeof TouchableOpacity>, TitleButton
         return null;
     }
 
+    // Animasi scale untuk efek tombol ditekan
+    const [scale] = useState(new Animated.Value(1)); // Nilai awal skala adalah 1
+
+    const handlePressIn = () => {
+        Animated.spring(scale, {
+            toValue: 0.90,
+            friction: 4,
+            useNativeDriver: true,
+        }).start();
+    };
+
+    const handlePressOut = () => {
+        Animated.spring(scale, {
+            toValue: 1,
+            friction: 4,
+            useNativeDriver: true,
+        }).start();
+    };
+
     return (
-        <TouchableOpacity ref={ref} style={[styles.wrapper, style]} onPress={onPress} activeOpacity={0.5}>
-            <View style={styles.shadow_button}>
-                <Text style={styles.hidden_text}>{title}</Text>
-            </View>
-            <View style={styles.button_style}>
-                <Text style={styles.text_style}>{title}</Text>
-            </View>
-        </TouchableOpacity>
+        <Pressable
+            onPressIn={handlePressIn}
+            onPressOut={handlePressOut}
+            onPress={onPress}
+        >
+            <Animated.View
+                ref={ref}
+                style={[styles.wrapper, { transform: [{ scale }] }, style]}
+            >
+                <View style={styles.shadow_button}>
+                    <Text style={styles.hidden_text}>{title}</Text>
+                </View>
+                <View style={styles.button_style}>
+                    <Text style={styles.text_style}>{title}</Text>
+                </View>
+            </Animated.View>
+        </Pressable>
     );
 });
 
