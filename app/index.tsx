@@ -1,11 +1,11 @@
 import { Text, View, StyleSheet, Image } from "react-native";
+import { Link } from 'expo-router';
 import { useEffect } from "react";
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
 SplashScreen.preventAutoHideAsync()
 import Button from "@/components/Button";
-import { transform } from "@babel/core";
 
 export default function Index() {
   const [loaded, error] = useFonts({
@@ -42,11 +42,12 @@ export default function Index() {
       <Text style={styles.chatbot_description}>
         "Selamat datang! Asisten cerdas siap membantu. Tekan Get Started untuk memulai."
       </Text>
+      <Link href={{ pathname: "/chatbot" }} push asChild>
       <Button
         title="Get Started"
         style={{ top: 20, alignSelf: 'center' }}
-        onPress={() => alert("Tombol diklik!")}
       />
+      </Link>
     </View>
   );
 }

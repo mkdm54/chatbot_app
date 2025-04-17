@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, forwardRef, } from 'react';
 import { Text, View, StyleSheet, ViewStyle, TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -8,10 +8,10 @@ SplashScreen.preventAutoHideAsync();
 interface TitleButton {
     title?: string;
     style?: ViewStyle;
-    onPress?: () => void; // Tambahkan onPress
+    onPress?: () => void;
 }
 
-const Button: React.FC<TitleButton> = ({ title, style, onPress }) => {
+const Button = forwardRef<React.ElementRef<typeof TouchableOpacity>, TitleButton>(({ title, style, onPress }, ref) => {
     const [loaded, error] = useFonts({
         'Outfit-Black': require('@/assets/fonts/Outfit,Poppins/Outfit/static/Outfit-Black.ttf'),
         'Outfit-Bold': require('@/assets/fonts/Outfit,Poppins/Outfit/static/Outfit-Bold.ttf'),
@@ -35,17 +35,16 @@ const Button: React.FC<TitleButton> = ({ title, style, onPress }) => {
     }
 
     return (
-        <TouchableOpacity style={[styles.wrapper, style]} onPress={onPress} activeOpacity={1}>
+        <TouchableOpacity ref={ref} style={[styles.wrapper, style]} onPress={onPress} activeOpacity={0.5}>
             <View style={styles.shadow_button}>
                 <Text style={styles.hidden_text}>{title}</Text>
             </View>
-
             <View style={styles.button_style}>
                 <Text style={styles.text_style}>{title}</Text>
             </View>
         </TouchableOpacity>
     );
-};
+});
 
 const styles = StyleSheet.create({
     wrapper: {
