@@ -25,17 +25,27 @@ const BubbleChat = ({ sendPrompt, result }: typeChat) => {
 
     return (
         <View style={styles.chat_container}>
-            {sendPrompt ? (
-                <View style={[styles.bubble, styles.bubble_right]}>
-                    <Text style={styles.text}>{sendPrompt}</Text>
+            {sendPrompt && (
+                <View style={styles.wrapper}>
+                    {/* Shadow */}
+                    <View style={[styles.bubble, styles.bubble_right_shadow]} />
+                    {/* Main bubble */}
+                    <View style={[styles.bubble, styles.bubble_right]}>
+                        <Text style={styles.text}>{sendPrompt}</Text>
+                    </View>
                 </View>
-            ) : null}
+            )}
 
-            {result ? (
-                <View style={[styles.bubble, styles.bubble_left]}>
-                    <Text style={styles.text}>{result}</Text>
+            {result && (
+                <View style={styles.wrapper}>
+                    {/* Shadow */}
+                    <View style={[styles.bubble, styles.bubble_left_shadow]} />
+                    {/* Main bubble */}
+                    <View style={[styles.bubble, styles.bubble_left]}>
+                        <Text style={styles.text}>{result}</Text>
+                    </View>
                 </View>
-            ) : null}
+            )}
         </View>
     );
 };
@@ -48,15 +58,21 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginTop: 5,
     },
+    wrapper: {
+        position: 'relative',
+        marginVertical: 10,
+    },
     bubble: {
         maxWidth: 'auto',
         padding: 10,
         borderRadius: 15,
-        marginVertical: 10,
+        borderWidth: 4,
+        borderColor: '#6a6054',
+        position: 'relative',
+        zIndex: 2,
     },
     bubble_right: {
-        alignSelf: 'flex-end', borderWidth: 4,
-        borderColor: '#6a6054',
+        alignSelf: 'flex-end',
         backgroundColor: '#ffe854',
         borderTopRightRadius: 0,
         marginRight: 0,
@@ -64,10 +80,34 @@ const styles = StyleSheet.create({
     bubble_left: {
         alignSelf: 'flex-start',
         backgroundColor: '#ffffff',
-        borderWidth: 4,
-        borderColor: '#6a6054',
         borderTopLeftRadius: 0,
         marginLeft: 0,
+    },
+    bubble_right_shadow: {
+        alignSelf: 'flex-end',
+        backgroundColor: '#ccc8c5',
+        borderColor: '#ccc8c5',
+        position: 'absolute',
+        top: 7,
+        right: -7,
+        borderRadius: 15,
+        borderTopRightRadius: 0,
+        width: 180,
+        height: '100%',
+        zIndex: 1,
+    },
+    bubble_left_shadow: {
+        alignSelf: 'flex-start',
+        backgroundColor: '#ccc8c5',
+        borderColor: '#ccc8c5',
+        position: 'absolute',
+        top: 7,
+        left: -7,
+        borderRadius: 15,
+        borderTopLeftRadius: 0,
+        width: 345,
+        height: '100%',
+        zIndex: 1,
     },
     text: {
         fontFamily: 'Outfit-Medium',
@@ -75,6 +115,5 @@ const styles = StyleSheet.create({
         color: '#6a6054',
     }
 });
-
 
 export default BubbleChat;
