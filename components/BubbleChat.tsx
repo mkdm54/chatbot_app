@@ -42,16 +42,17 @@ const BubbleChat = ({ sendPrompt, result }: typeChat) => {
 
 const styles = StyleSheet.create({
     chat_container: {
+        flex: 1,
         width: 380,
-        alignItems: 'flex-start', // penting!
+        display: 'flex',
         paddingHorizontal: 10,
-        marginTop: 10,
+        marginTop: 5,
     },
     bubble: {
         maxWidth: 'auto',
         padding: 10,
         borderRadius: 15,
-        marginVertical: 5,
+        marginVertical: 10,
     },
     bubble_right: {
         alignSelf: 'flex-end', borderWidth: 4,
