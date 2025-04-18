@@ -39,6 +39,11 @@ export default function Layout() {
                     placeholder="Tanyakan apa saja"
                     placeholderTextColor="#999"
                 />
+                
+                {/* Bayangan di belakang ikon */}
+                <View style={styles.iconShadow} />
+
+                {/* Icon sebenarnya */}
                 <Pressable style={styles.iconContainer} onPress={() => console.log("Kirim:", text)}>
                     <Icon name="send" size={20} color="#6a6054" />
                 </Pressable>
@@ -64,17 +69,33 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         backgroundColor: '#fff',
+        position: 'relative',
     },
     input: {
         flex: 1,
         fontSize: 20,
         fontFamily: 'Outfit-Medium',
-        color : '#6a6054',
+        color: '#6a6054',
+    },
+    iconShadow: {
+        borderWidth: 4,
+        borderColor: '#ccc8c5',
+        position: 'absolute',
+        right: 9.4,
+        bottom: 5.4,
+        width: 50,
+        height: 50,
+        borderRadius: 10,
+        backgroundColor: '#ccc8c5',
+        zIndex: 0,
     },
     iconContainer: {
+        borderColor: '#6a6054',
+        borderWidth: 4,
         marginLeft: 10,
         padding: 12,
-        backgroundColor: '#e0e0e0',
+        backgroundColor: '#ffe854',
         borderRadius: 10,
+        zIndex: 1,
     },
 });
