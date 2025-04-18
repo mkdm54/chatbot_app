@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { Text, View, StyleSheet, TextInput, Pressable } from 'react-native';
+import { View, StyleSheet, TextInput, Pressable } from 'react-native';
 import { Stack } from 'expo-router';
 import Icon from 'react-native-vector-icons/Ionicons';
 import useCustomFonts from '@/src/hooks/useCustomFonts';
+import BubbleChat from '@/components/BubbleChat';
 import * as SplashScreen from 'expo-splash-screen';
 
 SplashScreen.preventAutoHideAsync();
@@ -31,6 +32,12 @@ export default function Layout() {
                     headerTitleStyle: { fontWeight: 'bold' },
                 }}
             />
+
+            <BubbleChat
+                sendPrompt="Apa itu React Native?"
+                result="React Native adalah framework untuk membuat aplikasi mobile dengan JavaScript."
+            />
+
             <View style={styles.inputContainer}>
                 <TextInput
                     style={styles.input}
@@ -39,7 +46,7 @@ export default function Layout() {
                     placeholder="Tanyakan apa saja"
                     placeholderTextColor="#999"
                 />
-                
+
                 {/* Bayangan di belakang ikon */}
                 <View style={styles.iconShadow} />
 
