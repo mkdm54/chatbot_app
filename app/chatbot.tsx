@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Text, View, StyleSheet, TextInput, Pressable } from 'react-native';
 import { Stack } from 'expo-router';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 import useCustomFonts from '@/src/hooks/useCustomFonts';
 import * as SplashScreen from 'expo-splash-screen';
 
