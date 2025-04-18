@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { View, StyleSheet, TextInput, Pressable } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, TextInput, Pressable, ScrollView } from 'react-native';
 import { Stack } from 'expo-router';
 import Icon from 'react-native-vector-icons/Ionicons';
 import useCustomFonts from '@/src/hooks/useCustomFonts';
@@ -8,8 +8,14 @@ import * as SplashScreen from 'expo-splash-screen';
 
 SplashScreen.preventAutoHideAsync();
 
+interface ChatMessage {
+    sendPrompt?: string;
+    result?: string;
+}
+
 export default function Layout() {
-    const [text, onChangeText] = React.useState('');
+    const [text, setText] = useState('');
+    const [chatList, setChatList] = useState<ChatMessage[]>([]);
     const [loaded, error] = useCustomFonts();
 
     useEffect(() => {
@@ -17,6 +23,18 @@ export default function Layout() {
             SplashScreen.hideAsync();
         }
     }, [loaded, error]);
+
+    const handleSend = () => {
+        if (!text.trim()) return;
+
+        const userMessage: ChatMessage = { sendPrompt: text };
+        const botReply: ChatMessage = {
+            result: 'Ini jawaban dummy untuk: ' + text,
+        };
+
+        setChatList([...chatList, userMessage, botReply]);
+        setText('');
+    };
 
     if (!loaded && !error) {
         return null;
@@ -30,28 +48,27 @@ export default function Layout() {
                     headerStyle: { backgroundColor: '#f4511e' },
                     headerTintColor: '#fff',
                     headerTitleStyle: { fontWeight: 'bold' },
+                    headerBackVisible: false,
                 }}
             />
 
-            <BubbleChat
-                sendPrompt="Apa itu React Native?"
-                result="React Native adalah framework untuk membuat aplikasi mobile dengan JavaScript."
-            />
+            <ScrollView style={{ flex: 1, width: '100%' }}>
+                {chatList.map((chat, index) => (
+                    <BubbleChat key={index} sendPrompt={chat.sendPrompt} result={chat.result} />
+                ))}
+            </ScrollView>
 
             <View style={styles.inputContainer}>
                 <TextInput
                     style={styles.input}
-                    onChangeText={onChangeText}
+                    onChangeText={setText}
                     value={text}
                     placeholder="Tanyakan apa saja"
                     placeholderTextColor="#999"
                 />
 
-                {/* Bayangan di belakang ikon */}
                 <View style={styles.iconShadow} />
-
-                {/* Icon sebenarnya */}
-                <Pressable style={styles.iconContainer} onPress={() => console.log("Kirim:", text)}>
+                <Pressable style={styles.iconContainer} onPress={handleSend}>
                     <Icon name="send" size={20} color="#6a6054" />
                 </Pressable>
             </View>
@@ -65,6 +82,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'center',
         padding: 20,
+        paddingBottom: 0,
     },
     inputContainer: {
         flexDirection: 'row',
@@ -74,9 +92,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         paddingVertical: 10,
         alignItems: 'center',
-        width: '100%',
+        width: 370,
         backgroundColor: '#fff',
         position: 'relative',
+        marginBottom:15,
     },
     input: {
         flex: 1,
@@ -101,7 +120,7 @@ const styles = StyleSheet.create({
         borderWidth: 4,
         marginLeft: 10,
         padding: 12,
-        backgroundColor: '#ffe854',
+        backgroundColor: '#ffD850',
         borderRadius: 10,
         zIndex: 1,
     },

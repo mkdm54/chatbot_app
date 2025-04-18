@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import useCustomFonts from "@/src/hooks/useCustomFonts";
 import * as SplashScreen from 'expo-splash-screen';
@@ -12,6 +12,8 @@ interface typeChat {
 
 const BubbleChat = ({ sendPrompt, result }: typeChat) => {
     const [loaded, error] = useCustomFonts();
+    const [rightBubbleLayout, setRightBubbleLayout] = useState({ width: 0, height: 0 });
+    const [leftBubbleLayout, setLeftBubbleLayout] = useState({ width: 0, height: 0 });
 
     useEffect(() => {
         if (loaded || error) {
@@ -27,10 +29,23 @@ const BubbleChat = ({ sendPrompt, result }: typeChat) => {
         <View style={styles.chat_container}>
             {sendPrompt && (
                 <View style={styles.wrapper}>
-                    {/* Shadow */}
-                    <View style={[styles.bubble, styles.bubble_right_shadow]} />
-                    {/* Main bubble */}
-                    <View style={[styles.bubble, styles.bubble_right]}>
+                    <View 
+                        style={[
+                            styles.bubble, 
+                            styles.bubble_right_shadow,
+                            { 
+                                width: rightBubbleLayout.width,
+                                height: rightBubbleLayout.height 
+                            }
+                        ]} 
+                    />
+                    <View 
+                        style={[styles.bubble, styles.bubble_right]}
+                        onLayout={(event) => {
+                            const { width, height } = event.nativeEvent.layout;
+                            setRightBubbleLayout({ width, height });
+                        }}
+                    >
                         <Text style={styles.text}>{sendPrompt}</Text>
                     </View>
                 </View>
@@ -38,10 +53,23 @@ const BubbleChat = ({ sendPrompt, result }: typeChat) => {
 
             {result && (
                 <View style={styles.wrapper}>
-                    {/* Shadow */}
-                    <View style={[styles.bubble, styles.bubble_left_shadow]} />
-                    {/* Main bubble */}
-                    <View style={[styles.bubble, styles.bubble_left]}>
+                    <View 
+                        style={[
+                            styles.bubble, 
+                            styles.bubble_left_shadow,
+                            { 
+                                width: leftBubbleLayout.width,
+                                height: leftBubbleLayout.height 
+                            }
+                        ]} 
+                    />
+                    <View 
+                        style={[styles.bubble, styles.bubble_left]}
+                        onLayout={(event) => {
+                            const { width, height } = event.nativeEvent.layout;
+                            setLeftBubbleLayout({ width, height });
+                        }}
+                    >
                         <Text style={styles.text}>{result}</Text>
                     </View>
                 </View>
@@ -63,9 +91,9 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     bubble: {
-        maxWidth: 'auto',
+        maxWidth: 300,
         padding: 10,
-        borderRadius: 15,
+        borderRadius: 10,
         borderWidth: 4,
         borderColor: '#6a6054',
         position: 'relative',
@@ -73,9 +101,9 @@ const styles = StyleSheet.create({
     },
     bubble_right: {
         alignSelf: 'flex-end',
-        backgroundColor: '#ffe854',
+        backgroundColor: '#ffD850',
         borderTopRightRadius: 0,
-        marginRight: 0,
+        marginRight: 14,
     },
     bubble_left: {
         alignSelf: 'flex-start',
@@ -88,12 +116,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#ccc8c5',
         borderColor: '#ccc8c5',
         position: 'absolute',
-        top: 7,
-        right: -7,
-        borderRadius: 15,
+        top: 9,
+        right: 8,
+        borderRadius: 10,
         borderTopRightRadius: 0,
-        width: 180,
-        height: '100%',
         zIndex: 1,
     },
     bubble_left_shadow: {
@@ -103,10 +129,9 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 7,
         left: -7,
-        borderRadius: 15,
+        borderRadius: 10,
         borderTopLeftRadius: 0,
-        width: 345,
-        height: '100%',
+        borderBottomRightRadius: 10,
         zIndex: 1,
     },
     text: {

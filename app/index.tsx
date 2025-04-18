@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet, Image } from "react-native";
-import { Stack, Link} from 'expo-router';
+import { Stack, Link } from 'expo-router';
 import { useEffect } from "react";
 import useCustomFonts from "@/src/hooks/useCustomFonts";
 import * as SplashScreen from 'expo-splash-screen';
@@ -23,12 +23,7 @@ export default function Index() {
     <View style={styles.container}>
       <Stack.Screen
         options={{
-          title: '',
-          headerStyle: { backgroundColor: '#ffffff' },
-          headerTintColor: '#ffffff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          headerShown: false
         }}
       />
       <View style={styles.img_container}>
@@ -61,7 +56,7 @@ const styles = StyleSheet.create({
   img_container: {
     width: 250,
     height: 250,
-    backgroundColor: "#ffe854",
+    backgroundColor: "#ffD850",
     borderRadius: 200,
     borderWidth: 5,
     borderColor: '#6a6054',
@@ -72,7 +67,7 @@ const styles = StyleSheet.create({
     width: 250,
     height: 250,
     resizeMode: 'contain',
-    borderColor : '#6a6054',
+    borderColor: '#6a6054',
   },
   chatbot_title: {
     fontFamily: 'Outfit-Bold',
