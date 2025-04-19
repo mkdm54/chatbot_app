@@ -15,12 +15,12 @@ interface ChatMessage {
     isLoading?: boolean;
 }
 
-export default function Layout() {
+export default function ChatBot() {
     const [text, setText] = useState('');
     const [chatList, setChatList] = useState<ChatMessage[]>([]);
     const [loaded, error] = useCustomFonts();
     // Konstanta untuk API
-    const OPENROUTER_API_KEY = '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';
+    const OPENROUTER_API_KEY = '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';
     const YOUR_SITE_URL = 'http://localhost:8081';
     const YOUR_SITE_NAME = 'NOVA AI';
 
@@ -109,7 +109,6 @@ export default function Layout() {
                     {/* Main bubble with loading indicator */}
                     <View style={[styles.bubble, styles.bubble_left]}>
                         <ActivityIndicator size="small" color="#6a6054" />
-
                     </View>
                 </View>
             );
@@ -119,7 +118,7 @@ export default function Layout() {
             <View style={{ marginBottom: 10 }}>
                 <BubbleChat result={result} />
                 <View style={{ paddingLeft: 10, marginTop: 5 }}>
-                    <CopyButton />
+                    <CopyButton resultCopy={result || ''} />
                 </View>
             </View>
         );
