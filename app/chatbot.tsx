@@ -4,6 +4,7 @@ import { Stack } from 'expo-router';
 import Icon from 'react-native-vector-icons/Ionicons';
 import useCustomFonts from '@/src/hooks/useCustomFonts';
 import BubbleChat from '@/components/BubbleChat';
+import CopyButton from '@/components/CopyButton';
 import * as SplashScreen from 'expo-splash-screen';
 
 SplashScreen.preventAutoHideAsync();
@@ -108,12 +109,20 @@ export default function Layout() {
                     {/* Main bubble with loading indicator */}
                     <View style={[styles.bubble, styles.bubble_left]}>
                         <ActivityIndicator size="small" color="#6a6054" />
+
                     </View>
                 </View>
             );
         }
 
-        return <BubbleChat result={result} />;
+        return (
+            <View style={{ marginBottom: 10 }}>
+                <BubbleChat result={result} />
+                <View style={{ paddingLeft: 10, marginTop: 5 }}>
+                    <CopyButton />
+                </View>
+            </View>
+        );
     };
 
     return (
