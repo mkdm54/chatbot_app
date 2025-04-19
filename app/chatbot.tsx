@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, TextInput, Pressable, ScrollView, ActivityIndicator, Text } from 'react-native';
+import { View, StyleSheet, TextInput, Pressable, ScrollView, ActivityIndicator, BackHandler } from 'react-native';
 import { Stack } from 'expo-router';
 import Icon from 'react-native-vector-icons/Ionicons';
 import useCustomFonts from '@/src/hooks/useCustomFonts';
@@ -18,11 +18,18 @@ export default function Layout() {
     const [text, setText] = useState('');
     const [chatList, setChatList] = useState<ChatMessage[]>([]);
     const [loaded, error] = useCustomFonts();
-
     // Konstanta untuk API
-    const OPENROUTER_API_KEY = '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';
+    const OPENROUTER_API_KEY = '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';
     const YOUR_SITE_URL = 'http://localhost:8081';
     const YOUR_SITE_NAME = 'NOVA AI';
+
+    useEffect(() => {
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            return true;
+        });
+
+        return () => backHandler.remove();
+    }, []);
 
     useEffect(() => {
         if (loaded || error) {
@@ -113,13 +120,10 @@ export default function Layout() {
         <View style={styles.container}>
             <Stack.Screen
                 options={{
-                    title: '',
-                    headerStyle: { backgroundColor: '#f4511e' },
-                    headerTintColor: '#fff',
-                    headerTitleStyle: { fontWeight: 'bold' },
-                    headerBackVisible: false,
+                    headerShown: false,
                 }}
             />
+
 
             <ScrollView
                 style={{ flex: 1, width: '100%' }}
