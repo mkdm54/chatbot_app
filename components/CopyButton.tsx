@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
   },
   shadow_layer: {
     position: "absolute",
-    top: 4,
-    left: 4,
+    top: 5,
+    right: 5,
     borderColor: "#ccc8c5",
     backgroundColor: "#ccc8c5",
     zIndex: 1,
