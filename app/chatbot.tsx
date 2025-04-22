@@ -14,7 +14,7 @@ import useCustomFonts from "@/src/hooks/useCustomFonts";
 import BubbleChat from "@/components/BubbleChat";
 import CopyButton from "@/components/CopyButton";
 import * as SplashScreen from "expo-splash-screen";
-import { fetchOpenRouterResponse } from "@/src/api/deepseep_api"; // Import API
+import { fetchOpenRouterResponse } from "@/src/api/deepseak_api"; // Import API
 import { Colors } from "@/constant/Color";
 
 SplashScreen.preventAutoHideAsync();
