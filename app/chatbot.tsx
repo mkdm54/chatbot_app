@@ -14,6 +14,7 @@ import useCustomFonts from "@/src/hooks/useCustomFonts";
 import BubbleChat from "@/components/BubbleChat";
 import CopyButton from "@/components/CopyButton";
 import * as SplashScreen from "expo-splash-screen";
+import { fetchOpenRouterResponse } from "@/src/api/deepseep_api"; // Import API
 
 SplashScreen.preventAutoHideAsync();
 
@@ -27,20 +28,12 @@ export default function ChatBot() {
   const [text, setText] = useState("");
   const [chatList, setChatList] = useState<ChatMessage[]>([]);
   const [loaded, error] = useCustomFonts();
-  // Konstanta untuk API
-  const OPENROUTER_API_KEY =
-    "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";
-  const YOUR_SITE_URL = "http://localhost:8081";
-  const YOUR_SITE_NAME = "NOVA AI";
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
-      () => {
-        return true;
-      }
+      () => true
     );
-
     return () => backHandler.remove();
   }, []);
 
@@ -50,55 +43,20 @@ export default function ChatBot() {
     }
   }, [loaded, error]);
 
-  const fetchOpenRouterResponse = async (prompt: string) => {
-    try {
-      const response = await fetch(
-        "https://openrouter.ai/api/v1/chat/completions",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${OPENROUTER_API_KEY}`,
-            "HTTP-Referer": YOUR_SITE_URL,
-            "X-Title": YOUR_SITE_NAME,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            model: "deepseek/deepseek-r1:free",
-            messages: [
-              {
-                role: "user",
-                content: prompt,
-              },
-            ],
-          }),
-        }
-      );
-
-      const data = await response.json();
-      return data.choices[0].message.content;
-    } catch (error) {
-      console.error("Error fetching response:", error);
-      return "Maaf, terjadi kesalahan dalam memproses permintaan Anda.";
-    }
-  };
-
   const handleSend = async () => {
     if (!text.trim()) return;
 
     const userMessage: ChatMessage = { sendPrompt: text };
     setChatList((prevList) => [...prevList, userMessage]);
 
-    // Tambahkan pesan loading dalam bubble chat
     const loadingBotMessage: ChatMessage = { result: "", isLoading: true };
     setChatList((prevList) => [...prevList, loadingBotMessage]);
 
     const userPrompt = text;
     setText("");
 
-    // Dapatkan respons dari API
     const aiResponse = await fetchOpenRouterResponse(userPrompt);
 
-    // Update pesan bot dengan respons yang sebenarnya
     setChatList((prevList) => {
       const newList = [...prevList];
       newList[newList.length - 1] = { result: aiResponse, isLoading: false };
@@ -106,28 +64,19 @@ export default function ChatBot() {
     });
   };
 
-  if (!loaded && !error) {
-    return null;
-  }
+  if (!loaded && !error) return null;
 
-  // Modifikasi BubbleChat untuk menampilkan loading
   const CustomBubbleChat = ({ sendPrompt, result, isLoading }: ChatMessage) => {
-    if (sendPrompt) {
-      return <BubbleChat sendPrompt={sendPrompt} />;
-    }
-
-    if (isLoading) {
+    if (sendPrompt) return <BubbleChat sendPrompt={sendPrompt} />;
+    if (isLoading)
       return (
         <View style={styles.wrapper}>
-          {/* Shadow */}
           <View style={[styles.bubble, styles.bubble_left_shadow]} />
-          {/* Main bubble with loading indicator */}
           <View style={[styles.bubble, styles.bubble_left]}>
             <ActivityIndicator size="small" color="#6a6054" />
           </View>
         </View>
       );
-    }
 
     return (
       <View style={{ marginBottom: 10 }}>
@@ -141,11 +90,7 @@ export default function ChatBot() {
 
   return (
     <View style={styles.container}>
-      <Stack.Screen
-        options={{
-          headerShown: false,
-        }}
-      />
+      <Stack.Screen options={{ headerShown: false }} />
 
       <ScrollView
         style={{ flex: 1, width: "100%" }}
@@ -174,7 +119,6 @@ export default function ChatBot() {
           placeholder="Tanyakan apa saja"
           placeholderTextColor="#999"
         />
-
         <View style={styles.iconShadow} />
         <Pressable
           style={styles.iconContainer}
