@@ -1,7 +1,8 @@
 // src/utils/api.ts
+import { OPENROUTER_API_KEY } from "@/expo-env";
+
 export const fetchOpenRouterResponse = async (prompt: string) => {
-  const OPENROUTER_API_KEY =
-    "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";
+  const API_KEY = OPENROUTER_API_KEY;
   const URL = "http://localhost:8081";
   const APP_NAME = "NOVA AI";
 
@@ -11,7 +12,7 @@ export const fetchOpenRouterResponse = async (prompt: string) => {
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${OPENROUTER_API_KEY}`,
+          Authorization: `Bearer ${API_KEY}`,
           "HTTP-Referer": URL,
           "X-Title": APP_NAME,
           "Content-Type": "application/json",
