@@ -22,11 +22,7 @@ export default function Index() {
   }
   return (
     <View style={styles.container}>
-      <Stack.Screen
-        options={{
-          headerShown: false
-        }}
-      />
+      
       <View style={styles.img_container}>
         <Image
           // image by https://www.vecteezy.com/vector-art/23093053-artificial-intelligence-robot-chatbot-vector-ai-chatbot-concept-colored-icon

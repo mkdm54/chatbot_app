@@ -91,8 +91,6 @@ export default function ChatBot() {
 
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{ headerShown: false }} />
-
       <ScrollView
         style={{ flex: 1, width: "auto" }}
         contentContainerStyle={{ paddingBottom: 20 }}
