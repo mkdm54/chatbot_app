@@ -1,5 +1,5 @@
 // src/utils/api.ts
-import { OPENROUTER_API_KEY } from "@/expo-env";
+import { OPENROUTER_API_KEY } from "@/expo-env.d";
 
 export const fetchOpenRouterResponse = async (prompt: string) => {
   const API_KEY = OPENROUTER_API_KEY;
