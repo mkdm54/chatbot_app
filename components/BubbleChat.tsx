@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     width: 380,
     display: "flex",
     paddingHorizontal: 10,
-    marginTop: 5,
+    marginTop: 0,
   },
   wrapper: {
     position: "relative",
