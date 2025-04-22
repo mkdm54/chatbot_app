@@ -7,10 +7,10 @@ export default function Layout() {
       <Stack.Screen
         name="chatbot"
         options={{
-          title : "",
+          title: "",
           headerShown: true,
-          headerStyle : {backgroundColor: Colors.light.yellow_background},
-          headerLeft : () => false,
+          headerStyle: { backgroundColor: Colors.light.yellow_background },
+          headerLeft: () => false,
         }}
       />
       <Stack.Screen
@@ -22,5 +22,3 @@ export default function Layout() {
     </Stack>
   );
 }
-
-//
