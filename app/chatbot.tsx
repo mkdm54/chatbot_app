@@ -94,7 +94,7 @@ export default function ChatBot() {
       <Stack.Screen options={{ headerShown: false }} />
 
       <ScrollView
-        style={{ flex: 1, width: "100%" }}
+        style={{ flex: 1, width: "auto" }}
         contentContainerStyle={{ paddingBottom: 20 }}
         ref={(ref) => {
           if (ref && chatList.length > 0) {
