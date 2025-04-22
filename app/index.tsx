@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import useCustomFonts from "@/src/hooks/useCustomFonts";
 import * as SplashScreen from 'expo-splash-screen';
 import Button from "@/components/Button";
+import { Colors } from "@/constant/Color";
 
 SplashScreen.preventAutoHideAsync()
 
@@ -56,10 +57,10 @@ const styles = StyleSheet.create({
   img_container: {
     width: 250,
     height: 250,
-    backgroundColor: "#ffD850",
+    backgroundColor: Colors.light.yellow_background,
     borderRadius: 200,
     borderWidth: 5,
-    borderColor: '#6a6054',
+    borderColor: Colors.light.border_color,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -67,13 +68,13 @@ const styles = StyleSheet.create({
     width: 250,
     height: 250,
     resizeMode: 'contain',
-    borderColor: '#6a6054',
+    borderColor: Colors.light.border_color,
   },
   chatbot_title: {
     fontFamily: 'Outfit-Bold',
     fontSize: 40,
     textTransform: "uppercase",
-    color: '#6a6054',
+    color: Colors.light.border_color,
   },
   chatbot_description: {
     fontSize: 16,

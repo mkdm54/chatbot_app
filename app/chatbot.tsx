@@ -15,6 +15,7 @@ import BubbleChat from "@/components/BubbleChat";
 import CopyButton from "@/components/CopyButton";
 import * as SplashScreen from "expo-splash-screen";
 import { fetchOpenRouterResponse } from "@/src/api/deepseep_api"; // Import API
+import { Colors } from "@/constant/Color";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -73,7 +74,7 @@ export default function ChatBot() {
         <View style={styles.wrapper}>
           <View style={[styles.bubble, styles.bubble_left_shadow]} />
           <View style={[styles.bubble, styles.bubble_left]}>
-            <ActivityIndicator size="small" color="#6a6054" />
+            <ActivityIndicator size="small" color={Colors.light.text} />
           </View>
         </View>
       );
@@ -125,7 +126,7 @@ export default function ChatBot() {
           onPress={handleSend}
           disabled={!text.trim()}
         >
-          <Icon name="send" size={20} color="#6a6054" />
+          <Icon name="send" size={20} color={Colors.light.text} />
         </Pressable>
       </View>
     </View>
@@ -143,7 +144,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "row",
     borderWidth: 4,
-    borderColor: "#6a6054",
+    borderColor: Colors.light.border_color,
     borderRadius: 10,
     paddingHorizontal: 15,
     paddingVertical: 10,
@@ -157,22 +158,22 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 20,
     fontFamily: "Outfit-Medium",
-    color: "#6a6054",
+    color: Colors.light.text, // color text input
   },
   iconShadow: {
     borderWidth: 4,
-    borderColor: "#ccc8c5",
+    borderColor: Colors.light.shadow_color,
     position: "absolute",
     right: 9.4,
     bottom: 5.4,
     width: 50,
     height: 50,
     borderRadius: 10,
-    backgroundColor: "#ccc8c5",
+    backgroundColor: Colors.light.shadow_color,
     zIndex: 0,
   },
   iconContainer: {
-    borderColor: "#6a6054",
+    borderColor: Colors.light.border_color,
     borderWidth: 4,
     marginLeft: 10,
     padding: 12,
@@ -189,7 +190,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     borderWidth: 4,
-    borderColor: "#6a6054",
+    borderColor: Colors.light.border_color,
     position: "relative",
     zIndex: 2,
   },
@@ -202,8 +203,8 @@ const styles = StyleSheet.create({
   },
   bubble_left_shadow: {
     alignSelf: "flex-start",
-    backgroundColor: "#ccc8c5",
-    borderColor: "#ccc8c5",
+    backgroundColor: Colors.light.shadow_color,
+    borderColor: Colors.light.shadow_color,
     position: "absolute",
     top: 7,
     left: -7,
