@@ -42,7 +42,7 @@ const CopyButton = ({ resultCopy }: CopyButtonProps) => {
 const styles = StyleSheet.create({
   wrapper: {
     position: "relative",
-    alignSelf: "flex-end",
+    alignSelf: "flex-start",
     marginRight: 60,
     marginTop: -2,
   },
@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
   },
   tooltip: {
     position: "absolute",
-    top: 38,
-    left: 0,
+    top: 45,
+    left:0,
     backgroundColor: "#6a6054",
     paddingHorizontal: 6,
     paddingVertical: 2,
