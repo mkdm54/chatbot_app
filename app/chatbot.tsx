@@ -92,7 +92,7 @@ export default function ChatBot() {
   return (
     <View style={styles.container}>
       <ScrollView
-        style={{ flex: 1, width: "auto" }}
+        style={{ flex: 1, width: "100%" }}
         contentContainerStyle={{ paddingBottom: 20 }}
         ref={(ref) => {
           if (ref && chatList.length > 0) {
@@ -112,20 +112,24 @@ export default function ChatBot() {
 
       <View style={styles.inputContainer}>
         <TextInput
+          multiline
           style={styles.input}
           onChangeText={setText}
           value={text}
           placeholder="Tanyakan apa saja"
           placeholderTextColor="#999"
+          maxHeight={120}
         />
-        <View style={styles.iconShadow} />
-        <Pressable
-          style={styles.iconContainer}
-          onPress={handleSend}
-          disabled={!text.trim()}
-        >
-          <Icon name="send" size={20} color={Colors.light.text} />
-        </Pressable>
+        <View style={styles.sendButtonContainer}>
+          <View style={styles.iconShadow} />
+          <Pressable
+            style={styles.iconContainer}
+            onPress={handleSend}
+            disabled={!text.trim()}
+          >
+            <Icon name="send" size={20} color={Colors.light.text} />
+          </Pressable>
+        </View>
       </View>
     </View>
   );
@@ -147,23 +151,31 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 10,
     alignItems: "center",
-    width: 370,
+    width: "100%",
+    maxWidth: 370,
     backgroundColor: "#fff",
-    position: "relative",
     marginBottom: 15,
   },
   input: {
     flex: 1,
     fontSize: 20,
     fontFamily: "Outfit-Medium",
-    color: Colors.light.text, // color text input
+    color: Colors.light.text,
+    paddingVertical: 10,
+    textAlignVertical: "top",
+  },
+  sendButtonContainer: {
+    position: "relative",
+    marginLeft: 10,
+    width: 50,
+    height: 50,
   },
   iconShadow: {
     borderWidth: 4,
     borderColor: Colors.light.shadow_color,
     position: "absolute",
-    right: 9.4,
-    bottom: 5.4,
+    right: -4,
+    bottom: -4,
     width: 50,
     height: 50,
     borderRadius: 10,
@@ -173,11 +185,12 @@ const styles = StyleSheet.create({
   iconContainer: {
     borderColor: Colors.light.border_color,
     borderWidth: 4,
-    marginLeft: 10,
     padding: 12,
     backgroundColor: "#ffD850",
     borderRadius: 10,
     zIndex: 1,
+    width: 50,
+    height: 50,
   },
   wrapper: {
     position: "relative",
