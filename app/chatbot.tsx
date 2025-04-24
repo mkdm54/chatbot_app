@@ -113,12 +113,11 @@ export default function ChatBot() {
       <View style={styles.inputContainer}>
         <TextInput
           multiline
-          style={styles.input}
+          style={[styles.input, { maxHeight: 120 }]}
           onChangeText={setText}
           value={text}
           placeholder="Tanyakan apa saja"
           placeholderTextColor="#999"
-          maxHeight={120}
         />
         <View style={styles.sendButtonContainer}>
           <View style={styles.iconShadow} />
