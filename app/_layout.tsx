@@ -19,6 +19,12 @@ export default function Layout() {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="auth/LoginScreen"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }
