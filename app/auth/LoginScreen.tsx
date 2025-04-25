@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     textAlign: "center",
     width: "100%",
-    height: 70,
+    height: 75,
     top : 20, 
   },
   img_style: {
