@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -6,7 +6,9 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  BackHandler,
 } from "react-native";
+import { Colors } from "@/constant/Color";
 import { loginUser } from "@/src/api/dummyAuthApi";
 import Icon from "react-native-vector-icons/Feather";
 import { useRouter } from "expo-router";
@@ -16,6 +18,14 @@ export default function LoginScreen() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [secureText, setSecureText] = useState(true);
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => true
+    );
+    return () => backHandler.remove();
+  }, []);
 
   const handleLogin = async () => {
     if (!username.trim() || !password.trim()) {
@@ -92,7 +102,7 @@ const styles = StyleSheet.create({
   },
   username_input: {
     height: 40,
-    borderColor: "gray",
+    borderColor: Colors.light.border_color,
     borderWidth: 1,
     marginBottom: 15,
     paddingHorizontal: 10,
@@ -103,10 +113,10 @@ const styles = StyleSheet.create({
   },
   password_input: {
     height: 40,
-    borderColor: "gray",
+    borderColor: Colors.light.border_color,
     borderWidth: 1,
     paddingHorizontal: 10,
-    paddingRight: 40, // memberikan ruang untuk ikon mata
+    paddingRight: 40,
   },
   iconContainer: {
     position: "absolute",
