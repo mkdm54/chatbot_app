@@ -12,7 +12,7 @@ import { Colors } from "@/constant/Color";
 import { loginUser } from "@/src/api/dummyAuthApi";
 import Icon from "react-native-vector-icons/Feather";
 import { useRouter } from "expo-router";
-import Button from "@/components/Button";
+import { Button } from "@/components/Button";
 import useCustomFonts from "@/hooks/useCustomFonts";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -168,8 +168,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   button_component_style: {
-    alignSelf: "center",
-    width: "auto",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    width: "100%",
+    height: 70,
+    top : 20, 
   },
   img_style: {
     width: 200,

@@ -3,7 +3,7 @@ import { useRouter } from "expo-router";
 import { useEffect } from "react";
 import useCustomFonts from "@/hooks/useCustomFonts";
 import * as SplashScreen from "expo-splash-screen";
-import Button from "@/components/Button";
+import { Button } from "@/components/Button";
 import { Colors } from "@/constant/Color";
 
 SplashScreen.preventAutoHideAsync();

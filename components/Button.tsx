@@ -6,6 +6,8 @@ import {
   ViewStyle,
   Animated,
   Pressable,
+  TextStyle,
+  LayoutChangeEvent,
 } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import useCustomFonts from "@/hooks/useCustomFonts";
@@ -15,12 +17,14 @@ SplashScreen.preventAutoHideAsync();
 interface TitleButton {
   title?: string;
   style?: ViewStyle;
+  textStyle?: TextStyle;
   onPress?: () => void;
 }
 
-const Button = forwardRef<React.ElementRef<typeof Animated.View>, TitleButton>(
-  ({ title, style, onPress }, ref) => {
+export const Button = forwardRef<React.ElementRef<typeof Animated.View>, TitleButton>(
+  ({ title, style, textStyle, onPress }, ref) => {
     const [loaded, error] = useCustomFonts();
+    const [buttonLayout, setButtonLayout] = useState({ width: 0, height: 0 });
 
     useEffect(() => {
       if (loaded || error) {
@@ -50,6 +54,11 @@ const Button = forwardRef<React.ElementRef<typeof Animated.View>, TitleButton>(
       }).start();
     };
 
+    const onButtonLayout = (event : LayoutChangeEvent) => {
+      const { width, height } = event.nativeEvent.layout;
+      setButtonLayout({ width, height });
+    };
+
     return (
       <Pressable
         onPressIn={handlePressIn}
@@ -58,13 +67,25 @@ const Button = forwardRef<React.ElementRef<typeof Animated.View>, TitleButton>(
       >
         <Animated.View
           ref={ref}
-          style={[styles.wrapper, { transform: [{ scale }] }, style]}
+          style={[styles.wrapper, { transform: [{ scale }] }]}
+          onLayout={onButtonLayout}
         >
-          <View style={styles.shadow_button}>
-            <Text style={styles.hidden_text}>{title}</Text>
+          {/* Shadow Button at bottom-right */}
+          <View
+            style={[
+              styles.shadow_button,
+              {
+                width: buttonLayout.width,
+                height: buttonLayout.height,
+              },
+            ]}
+          >
+            <Text style={[styles.hidden_text, textStyle]}>{title}</Text>
           </View>
-          <View style={styles.button_style}>
-            <Text style={styles.text_style}>{title}</Text>
+
+          {/* Actual Button */}
+          <View style={[styles.button_style, style]}>
+            <Text style={[styles.text_style, textStyle]}>{title}</Text>
           </View>
         </Animated.View>
       </Pressable>
@@ -78,13 +99,14 @@ const styles = StyleSheet.create({
   },
   shadow_button: {
     position: "absolute",
-    top: 7,
-    left: 7,
+    bottom: -30,
+    right: -7,
     padding: 14,
     borderRadius: 15,
     backgroundColor: "#ccc8c5",
     borderWidth: 4,
     borderColor: "#ccc8c5",
+    zIndex: -1,
   },
   hidden_text: {
     opacity: 0,
@@ -97,6 +119,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffD850",
     borderWidth: 4,
     borderColor: "#6a6054",
+    zIndex: 1,
   },
   text_style: {
     color: "#6a6054",
@@ -104,5 +127,3 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
 });
-
-export default Button;
