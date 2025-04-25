@@ -8,7 +8,7 @@ import {
   Pressable,
 } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
-import useCustomFonts from "@/src/hooks/useCustomFonts";
+import useCustomFonts from "@/hooks/useCustomFonts";
 
 SplashScreen.preventAutoHideAsync();
 

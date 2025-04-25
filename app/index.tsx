@@ -1,7 +1,7 @@
 import { Text, View, StyleSheet, Image } from "react-native";
 import { Stack, Link } from 'expo-router';
 import { useEffect } from "react";
-import useCustomFonts from "@/src/hooks/useCustomFonts";
+import useCustomFonts from "@/hooks/useCustomFonts";
 import * as SplashScreen from 'expo-splash-screen';
 import Button from "@/components/Button";
 import { Colors } from "@/constant/Color";
