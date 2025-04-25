@@ -116,7 +116,7 @@ export default function ChatBot() {
           onChangeText={setText}
           value={text}
           placeholder="Tanyakan apa saja"
-          placeholderTextColor="#999"
+          placeholderTextColor={Colors.light.placeholder_color}
         />
         <View style={styles.sendButtonContainer}>
           <View style={styles.iconShadow} />

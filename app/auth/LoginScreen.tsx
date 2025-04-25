@@ -89,6 +89,7 @@ export default function LoginScreen() {
           />
           <TextInput
             placeholder="Username"
+            placeholderTextColor={Colors.light.placeholder_color}
             style={styles.input}
             value={username}
             onChangeText={setUsername}
@@ -103,6 +104,7 @@ export default function LoginScreen() {
           />
           <TextInput
             placeholder="Password"
+            placeholderTextColor={Colors.light.placeholder_color}
             secureTextEntry={secureText}
             style={styles.input}
             value={password}
