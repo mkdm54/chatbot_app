@@ -23,13 +23,11 @@ export default function Index() {
   }
   return (
     <View style={styles.container}>
-      <View style={styles.img_container}>
-        <Image
-          // image by https://www.vecteezy.com/vector-art/23093053-artificial-intelligence-robot-chatbot-vector-ai-chatbot-concept-colored-icon
-          source={require("@/assets/images/icon.png")}
-          style={styles.img_style}
-        />
-      </View>
+      <Image
+        // image by https://freesvg.org/1538298822
+        source={require("@/assets/images/icon.png")}
+        style={styles.img_style}
+      />
       <Text style={styles.chatbot_title}>nova</Text>
       <Text style={styles.chatbot_description}>
         Selamat datang! NOVA siap membantu. Click Get Started untuk memulai.
@@ -46,16 +44,6 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  img_container: {
-    width: 250,
-    height: 250,
-    backgroundColor: Colors.light.yellow_background,
-    borderRadius: 200,
-    borderWidth: 5,
-    borderColor: Colors.light.border_color,
     justifyContent: "center",
     alignItems: "center",
   },
