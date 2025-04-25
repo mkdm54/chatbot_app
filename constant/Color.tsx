@@ -7,5 +7,6 @@ export const Colors = {
     border_color: "#6a6054",
     shadow_color: "#ccc8c5",
     text: "#6a6054",
+    placeholder_color : "#999",
   },
 };
