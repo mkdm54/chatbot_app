@@ -1,15 +1,16 @@
 import { Text, View, StyleSheet, Image } from "react-native";
-import { Stack, Link } from 'expo-router';
+import { useRouter } from "expo-router";
 import { useEffect } from "react";
 import useCustomFonts from "@/hooks/useCustomFonts";
-import * as SplashScreen from 'expo-splash-screen';
+import * as SplashScreen from "expo-splash-screen";
 import Button from "@/components/Button";
 import { Colors } from "@/constant/Color";
 
-SplashScreen.preventAutoHideAsync()
+SplashScreen.preventAutoHideAsync();
 
 export default function Index() {
-  const [loaded, error] = useCustomFonts()
+  const router = useRouter();
+  const [loaded, error] = useCustomFonts();
 
   useEffect(() => {
     if (loaded || error) {
@@ -22,11 +23,10 @@ export default function Index() {
   }
   return (
     <View style={styles.container}>
-      
       <View style={styles.img_container}>
         <Image
           // image by https://www.vecteezy.com/vector-art/23093053-artificial-intelligence-robot-chatbot-vector-ai-chatbot-concept-colored-icon
-          source={require('@/assets/images/icon.png')}
+          source={require("@/assets/images/icon.png")}
           style={styles.img_style}
         />
       </View>
@@ -34,12 +34,11 @@ export default function Index() {
       <Text style={styles.chatbot_description}>
         Selamat datang! NOVA siap membantu. Click Get Started untuk memulai.
       </Text>
-      <Link href={{ pathname: "/chatbot" }} push asChild>
-        <Button
-          title="Get Started"
-          style={{ top: 20, alignSelf: 'center' }}
-        />
-      </Link>
+      <Button
+        title="Get Started"
+        style={{ top: 20, alignSelf: "center" }}
+        onPress={() => router.push("/auth/LoginScreen")}
+      />
     </View>
   );
 }
@@ -57,26 +56,26 @@ const styles = StyleSheet.create({
     borderRadius: 200,
     borderWidth: 5,
     borderColor: Colors.light.border_color,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center",
   },
   img_style: {
     width: 250,
     height: 250,
-    resizeMode: 'contain',
+    resizeMode: "contain",
     borderColor: Colors.light.border_color,
   },
   chatbot_title: {
-    fontFamily: 'Outfit-Bold',
+    fontFamily: "Outfit-Bold",
     fontSize: 40,
     textTransform: "uppercase",
     color: Colors.light.border_color,
   },
   chatbot_description: {
     fontSize: 16,
-    textAlign: 'center', // Menengahkan teks
+    textAlign: "center",
     paddingHorizontal: 35,
-    flexWrap: 'wrap',
-    fontFamily: 'Outfit-Medium',
-  }
+    flexWrap: "wrap",
+    fontFamily: "Outfit-Medium",
+  },
 });
