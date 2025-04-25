@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   BackHandler,
   Image,
+  Text,
 } from "react-native";
 import { Colors } from "@/constant/Color";
 import { loginUser } from "@/src/api/dummyAuthApi";
@@ -127,6 +128,15 @@ export default function LoginScreen() {
           style={styles.button_component_style}
           onPress={handleLogin}
         />
+
+        <View style={{ alignItems: "center", marginTop: 30 }}>
+          <TouchableOpacity onPress={() => router.push("/not-found")}>
+            <Text style={styles.signupText}>
+              Belum punya akun?{" "}
+              <Text style={styles.signupLink}>Daftar di sini</Text>
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -175,12 +185,22 @@ const styles = StyleSheet.create({
     textAlign: "center",
     width: "100%",
     height: 75,
-    top : 20, 
+    top: 20,
   },
   img_style: {
     width: 200,
     height: 200,
     resizeMode: "contain",
     borderColor: Colors.light.border_color,
+  },
+  signupText: {
+    fontSize: 16,
+    color: Colors.light.text,
+    fontFamily: "Outfit-Regular",
+  },
+  signupLink: {
+    color: Colors.light.border_color,
+    fontWeight: "bold",
+    fontFamily: "Outfit-Medium",
   },
 });
