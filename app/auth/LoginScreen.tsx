@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   BackHandler,
+  Image,
 } from "react-native";
 import { Colors } from "@/constant/Color";
 import { loginUser } from "@/src/api/dummyAuthApi";
@@ -74,11 +75,15 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
+      <Image
+        source={require("@/assets/images/icon.png")}
+        style={styles.img_style}
+      />
       <View style={styles.wrapper}>
         <View style={styles.inputContainer}>
           <Icon
             name="user"
-            size={24}
+            size={25}
             color={Colors.light.border_color}
             style={styles.inputIcon}
           />
@@ -92,7 +97,7 @@ export default function LoginScreen() {
         <View style={styles.inputContainer}>
           <Icon
             name="lock"
-            size={24}
+            size={25}
             color={Colors.light.border_color}
             style={styles.inputIcon}
           />
@@ -109,7 +114,7 @@ export default function LoginScreen() {
           >
             <Icon
               name={secureText ? "eye-off" : "eye"}
-              size={24}
+              size={25}
               color={Colors.light.text}
             />
           </TouchableOpacity>
@@ -117,7 +122,7 @@ export default function LoginScreen() {
 
         <Button
           title="Login"
-          style={{ alignSelf: "center", width: 'auto' }}
+          style={styles.button_component_style}
           onPress={handleLogin}
         />
       </View>
@@ -150,16 +155,26 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: "100%",
-    color: Colors.light.shadow_color,
+    height: "auto",
+    color: Colors.light.text,
     fontFamily: "Outfit-Medium",
-    fontSize: 17,
-    paddingRight: 45, // Ruang untuk ikon mata
+    fontSize: 18,
+    paddingRight: 45,
   },
   eyeIconContainer: {
     position: "absolute",
     right: 15,
     height: "100%",
     justifyContent: "center",
+  },
+  button_component_style: {
+    alignSelf: "center",
+    width: "auto",
+  },
+  img_style: {
+    width: 200,
+    height: 200,
+    resizeMode: "contain",
+    borderColor: Colors.light.border_color,
   },
 });
