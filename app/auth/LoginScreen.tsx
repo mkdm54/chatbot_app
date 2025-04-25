@@ -4,7 +4,6 @@ import {
   StyleSheet,
   Alert,
   TextInput,
-  Button,
   TouchableOpacity,
   BackHandler,
 } from "react-native";
@@ -12,12 +11,28 @@ import { Colors } from "@/constant/Color";
 import { loginUser } from "@/src/api/dummyAuthApi";
 import Icon from "react-native-vector-icons/Feather";
 import { useRouter } from "expo-router";
+import Button from "@/components/Button";
+import useCustomFonts from "@/hooks/useCustomFonts";
+import * as SplashScreen from "expo-splash-screen";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function LoginScreen() {
   const router = useRouter();
+  const [loaded, error] = useCustomFonts();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [secureText, setSecureText] = useState(true);
+
+  useEffect(() => {
+    if (loaded || error) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded, error]);
+
+  if (!loaded && !error) {
+    return null;
+  }
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -60,32 +75,51 @@ export default function LoginScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
-        <TextInput
-          placeholder="Username"
-          style={styles.username_input}
-          value={username}
-          onChangeText={setUsername}
-        />
-        <View style={styles.passwordWrapper}>
+        <View style={styles.inputContainer}>
+          <Icon
+            name="user"
+            size={24}
+            color={Colors.light.border_color}
+            style={styles.inputIcon}
+          />
+          <TextInput
+            placeholder="Username"
+            style={styles.input}
+            value={username}
+            onChangeText={setUsername}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Icon
+            name="lock"
+            size={24}
+            color={Colors.light.border_color}
+            style={styles.inputIcon}
+          />
           <TextInput
             placeholder="Password"
             secureTextEntry={secureText}
-            style={styles.password_input}
+            style={styles.input}
             value={password}
             onChangeText={setPassword}
           />
           <TouchableOpacity
             onPress={toggleSecureText}
-            style={styles.iconContainer}
+            style={styles.eyeIconContainer}
           >
             <Icon
               name={secureText ? "eye-off" : "eye"}
-              size={20}
-              color="black"
+              size={24}
+              color={Colors.light.text}
             />
           </TouchableOpacity>
         </View>
-        <Button title="Login" onPress={handleLogin} />
+
+        <Button
+          title="Login"
+          style={{ alignSelf: "center", width: 'auto' }}
+          onPress={handleLogin}
+        />
       </View>
     </View>
   );
@@ -100,27 +134,32 @@ const styles = StyleSheet.create({
   wrapper: {
     width: "80%",
   },
-  username_input: {
-    height: 40,
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    height: 70,
     borderColor: Colors.light.border_color,
-    borderWidth: 1,
+    borderWidth: 4,
     marginBottom: 15,
-    paddingHorizontal: 10,
-  },
-  passwordWrapper: {
+    borderRadius: 10,
     position: "relative",
-    marginBottom: 20,
   },
-  password_input: {
-    height: 40,
-    borderColor: Colors.light.border_color,
-    borderWidth: 1,
-    paddingHorizontal: 10,
-    paddingRight: 40,
+  inputIcon: {
+    marginLeft: 15,
+    marginRight: 10,
   },
-  iconContainer: {
+  input: {
+    flex: 1,
+    height: "100%",
+    color: Colors.light.shadow_color,
+    fontFamily: "Outfit-Medium",
+    fontSize: 17,
+    paddingRight: 45, // Ruang untuk ikon mata
+  },
+  eyeIconContainer: {
     position: "absolute",
-    right: 10,
-    top: 10,
+    right: 15,
+    height: "100%",
+    justifyContent: "center",
   },
 });
