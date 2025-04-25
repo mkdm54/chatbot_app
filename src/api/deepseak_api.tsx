@@ -8,7 +8,7 @@ export const fetchOpenRouterResponse = async (prompt: string) => {
 
   try {
     const response = await fetch(
-      "https://openrouter.ai/api/v1",
+      "https://openrouter.ai/api/v1/chat/completions",
       {
         method: "POST",
         headers: {
@@ -18,7 +18,7 @@ export const fetchOpenRouterResponse = async (prompt: string) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "deepseek/deepseek-v3-base:free",
+          model: "deepseek/deepseek-r1:free",
           messages: [
             {
               role: "user",
