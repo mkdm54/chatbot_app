@@ -8,7 +8,6 @@ import {
   ActivityIndicator,
   BackHandler,
 } from "react-native";
-import { Stack } from "expo-router";
 import Icon from "react-native-vector-icons/Ionicons";
 import useCustomFonts from "@/hooks/useCustomFonts";
 import BubbleChat from "@/components/BubbleChat";
