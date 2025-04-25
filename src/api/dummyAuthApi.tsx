@@ -1,3 +1,4 @@
+// by https://dummyjson.com/docs/auth
 export const login = async (username: string, password: string) => {
   try {
     const response = await fetch("https://dummyjson.com/auth/login", {
