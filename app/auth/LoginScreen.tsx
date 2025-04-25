@@ -124,7 +124,7 @@ export default function LoginScreen() {
         </View>
 
         <Button
-          title="Login"
+          title="Masuk"
           style={styles.button_component_style}
           onPress={handleLogin}
         />
