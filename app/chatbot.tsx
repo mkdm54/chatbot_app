@@ -16,7 +16,7 @@ import CopyButton from "@/components/CopyButton";
 import * as SplashScreen from "expo-splash-screen";
 import { fetchOpenRouterResponse } from "@/src/api/deepseek_api";
 import { Colors } from "@/constant/Color";
-import { useUser } from "@/context/UserContext"; // Tambahkan ini
+import { useUser } from "@/context/UserContext";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -27,10 +27,11 @@ interface ChatMessage {
 }
 
 export default function ChatBot() {
-  const { user } = useUser(); // Ambil user dari context
+  const { user } = useUser();
   const [text, setText] = useState("");
   const [chatList, setChatList] = useState<ChatMessage[]>([]);
   const [loaded, error] = useCustomFonts();
+  const [showWelcome, setShowWelcome] = useState(true);
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -45,6 +46,13 @@ export default function ChatBot() {
       SplashScreen.hideAsync();
     }
   }, [loaded, error]);
+
+  // Hide welcome message when chat starts
+  useEffect(() => {
+    if (chatList.length > 0) {
+      setShowWelcome(false);
+    }
+  }, [chatList]);
 
   const handleSend = async () => {
     if (!text.trim()) return;
@@ -93,25 +101,43 @@ export default function ChatBot() {
 
   return (
     <View style={styles.container}>
-      {/* Tampilkan username */}
-      <Text style={styles.username}>Halo, {user ? user : "Pengguna"}</Text>
       <ScrollView
         style={{ flex: 1, width: "100%" }}
-        contentContainerStyle={{ paddingBottom: 20 }}
+        contentContainerStyle={{
+          paddingBottom: 20,
+          ...(showWelcome && chatList.length === 0
+            ? { flex: 1, justifyContent: "center" }
+            : {}),
+        }}
         ref={(ref) => {
           if (ref && chatList.length > 0) {
             ref.scrollToEnd({ animated: true });
           }
         }}
       >
-        {chatList.map((chat, index) => (
-          <CustomBubbleChat
-            key={index}
-            sendPrompt={chat.sendPrompt}
-            result={chat.result}
-            isLoading={chat.isLoading}
-          />
-        ))}
+        {/* Welcome message that disappears when chat starts */}
+        {showWelcome && chatList.length === 0 ? (
+          <View style={styles.welcomeContainer}>
+            <Text style={styles.welcomeTitle}>Selamat Datang!</Text>
+            <Text style={styles.welcomeMessage}>
+              Halo {user ? user : "Pengguna"}, saya siap membantu menjawab
+              pertanyaan Anda.
+            </Text>
+            <Text style={styles.welcomeHint}>
+              Silahkan ketik pertanyaan Anda di kolom bawah.
+            </Text>
+          </View>
+        ) : (
+          // Chat messages
+          chatList.map((chat, index) => (
+            <CustomBubbleChat
+              key={index}
+              sendPrompt={chat.sendPrompt}
+              result={chat.result}
+              isLoading={chat.isLoading}
+            />
+          ))
+        )}
       </ScrollView>
 
       <View style={styles.inputContainer}>
@@ -152,7 +178,33 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     marginBottom: 10,
     color: Colors.light.text,
-    fontFamily: "Outfit-Bold", // Pastikan font ini tersedia
+    fontFamily: "Outfit-Bold",
+  },
+  welcomeContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+  },
+  welcomeTitle: {
+    fontSize: 28,
+    fontWeight: "bold",
+    marginBottom: 10,
+    color: Colors.light.text,
+    fontFamily: "Outfit-Bold",
+    textAlign: "center",
+  },
+  welcomeMessage: {
+    fontSize: 20,
+    marginBottom: 15,
+    color: Colors.light.text,
+    fontFamily: "Outfit-Medium",
+    textAlign: "center",
+  },
+  welcomeHint: {
+    fontSize: 16,
+    color: Colors.light.placeholder_color,
+    fontFamily: "Outfit-Regular",
+    textAlign: "center",
   },
   inputContainer: {
     flexDirection: "row",
