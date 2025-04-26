@@ -1,15 +1,22 @@
-// components/CustomHeader.tsx
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ImageSourcePropType,
+} from "react-native";
 import { Colors } from "@/constant/Color";
 
 interface CustomHeaderProps {
+  img?: ImageSourcePropType;
   title: string;
 }
 
-const CustomHeader: React.FC<CustomHeaderProps> = ({ title }) => {
+const CustomHeader: React.FC<CustomHeaderProps> = ({ title, img }) => {
   return (
     <View style={styles.container}>
+      {img && <Image source={img} style={styles.image} resizeMode="contain" />}
       <Text style={styles.titleText}>{title}</Text>
     </View>
   );
@@ -27,11 +34,17 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 5,
+    alignItems: "center",
+  },
+  image: {
+    width: 40,
+    height: 40,
+    marginBottom: 8,
   },
   titleText: {
     fontSize: 20,
     color: Colors.light.text,
     textAlign: "center",
-    fontFamily: "Outfit-Medium",
+    fontFamily: "Outfit-Bold",
   },
 });

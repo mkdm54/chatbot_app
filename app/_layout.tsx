@@ -23,9 +23,8 @@ export default function Layout() {
       <Stack.Screen
         name="chatbot"
         options={{
-          title: "",
           headerShown: true,
-          header: () => <CustomHeader title="Chatbot" />,
+          header: () => <CustomHeader title="NOVA AI" img={require("@/assets/images/icon.png")}/>,
         }}
       />
       <Stack.Screen
