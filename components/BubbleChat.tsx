@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
 import useCustomFonts from "@/hooks/useCustomFonts";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -76,7 +76,11 @@ const BubbleChat = ({ sendPrompt, result }: typeChat) => {
               setLeftBubbleLayout({ width, height });
             }}
           >
-            <Text style={styles.text}>{result}</Text>
+            <Image
+              style={styles.img_style}
+              source={require("@/assets/images/icon.png")}
+            />
+            <Text style={styles.text}>: {result}</Text>
           </View>
         </View>
       )}
@@ -116,6 +120,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
     borderTopLeftRadius: 0,
     marginLeft: 0,
+    flexDirection: "row",
+    alignItems: "flex-start",
   },
   bubble_right_shadow: {
     alignSelf: "flex-end",
@@ -144,6 +150,13 @@ const styles = StyleSheet.create({
     fontFamily: "Outfit-Medium",
     fontSize: 16,
     color: "#6a6054",
+    flex: 1,
+  },
+  img_style: {
+    width: 25,
+    height: 25,
+    marginRight: 10,
+    alignSelf: "flex-start",
   },
 });
 
