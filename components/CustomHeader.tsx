@@ -28,18 +28,21 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.light.yellow_background,
     paddingTop: 20,
-    paddingBottom: 20,
+    paddingBottom: 15,
     borderBottomWidth: 4,
     borderBottomColor: Colors.light.border_color,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 5,
     alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "center",
   },
   image: {
     width: 40,
     height: 40,
     marginBottom: 8,
+    marginRight: 10,
   },
   titleText: {
     fontSize: 20,
