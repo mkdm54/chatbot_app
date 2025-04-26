@@ -22,7 +22,6 @@ export default function Layout() {
 
   return (
     <UserProvider>
-      {" "}
       <Stack>
         <Stack.Screen
           name="chatbot"

@@ -94,7 +94,7 @@ export default function ChatBot() {
   return (
     <View style={styles.container}>
       {/* Tampilkan username */}
-      <Text style={styles.username}>Halo, {user || "Guest"}!</Text>
+      <Text style={styles.username}>Halo, {user ? user : "Pengguna"}</Text>
       <ScrollView
         style={{ flex: 1, width: "100%" }}
         contentContainerStyle={{ paddingBottom: 20 }}
