@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
+  Text,
   TextInput,
   Pressable,
   ScrollView,
@@ -13,8 +14,9 @@ import useCustomFonts from "@/hooks/useCustomFonts";
 import BubbleChat from "@/components/BubbleChat";
 import CopyButton from "@/components/CopyButton";
 import * as SplashScreen from "expo-splash-screen";
-import { fetchOpenRouterResponse } from "@/src/api/deepseek_api"; // Import API
+import { fetchOpenRouterResponse } from "@/src/api/deepseek_api";
 import { Colors } from "@/constant/Color";
+import { useUser } from "@/context/UserContext"; // Tambahkan ini
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,6 +27,7 @@ interface ChatMessage {
 }
 
 export default function ChatBot() {
+  const { user } = useUser(); // Ambil user dari context
   const [text, setText] = useState("");
   const [chatList, setChatList] = useState<ChatMessage[]>([]);
   const [loaded, error] = useCustomFonts();
@@ -90,6 +93,8 @@ export default function ChatBot() {
 
   return (
     <View style={styles.container}>
+      {/* Tampilkan username */}
+      <Text style={styles.username}>Halo, {user || "Guest"}!</Text>
       <ScrollView
         style={{ flex: 1, width: "100%" }}
         contentContainerStyle={{ paddingBottom: 20 }}
@@ -140,6 +145,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
     paddingBottom: 0,
+  },
+  username: {
+    fontSize: 22,
+    fontWeight: "bold",
+    alignSelf: "flex-start",
+    marginBottom: 10,
+    color: Colors.light.text,
+    fontFamily: "Outfit-Bold", // Pastikan font ini tersedia
   },
   inputContainer: {
     flexDirection: "row",

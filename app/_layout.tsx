@@ -4,6 +4,7 @@ import { Colors } from "@/constant/Color";
 import useCustomFonts from "@/hooks/useCustomFonts";
 import * as SplashScreen from "expo-splash-screen";
 import CustomHeader from "@/components/CustomHeader";
+import { UserProvider } from "@/context/UserContext"; // ← Tambahkan ini
 
 SplashScreen.preventAutoHideAsync();
 
@@ -18,33 +19,42 @@ export default function Layout() {
   if (!loaded && !error) {
     return null;
   }
+
   return (
-    <Stack>
-      <Stack.Screen
-        name="chatbot"
-        options={{
-          headerShown: true,
-          header: () => <CustomHeader title="NOVA AI" img={require("@/assets/images/icon.png")}/>,
-        }}
-      />
-      <Stack.Screen
-        name="index"
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="auth/LoginScreen"
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="not-found"
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack>
+    <UserProvider>
+      {" "}
+      <Stack>
+        <Stack.Screen
+          name="chatbot"
+          options={{
+            headerShown: true,
+            header: () => (
+              <CustomHeader
+                title="NOVA AI"
+                img={require("@/assets/images/icon.png")}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="index"
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="auth/LoginScreen"
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="not-found"
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack>
+    </UserProvider>
   );
 }

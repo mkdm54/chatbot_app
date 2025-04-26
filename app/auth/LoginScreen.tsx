@@ -16,6 +16,7 @@ import { useRouter } from "expo-router";
 import { Button } from "@/components/Button";
 import useCustomFonts from "@/hooks/useCustomFonts";
 import * as SplashScreen from "expo-splash-screen";
+import { useUser } from "@/context/UserContext";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -23,6 +24,7 @@ export default function LoginScreen() {
   const externalLinkIcon = (
     <Icon name="external-link" size={20} color={Colors.light.text} />
   );
+  const { setUser } = useUser();
   const router = useRouter();
   const [loaded, error] = useCustomFonts();
   const [username, setUsername] = useState("");
@@ -54,9 +56,10 @@ export default function LoginScreen() {
 
     try {
       const data = await loginUser(username, password);
-      console.log("Login result:", data);
+      console.log("Login result:", data.username);
 
       if (data && data.accessToken) {
+        setUser(data.username);
         Alert.alert(
           "Login Berhasil",
           `Selamat datang, ${data.firstName || data.username}!`,
