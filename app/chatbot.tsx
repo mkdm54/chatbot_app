@@ -8,6 +8,7 @@ import {
   ScrollView,
   ActivityIndicator,
   BackHandler,
+  Image,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import useCustomFonts from "@/hooks/useCustomFonts";
@@ -118,6 +119,10 @@ export default function ChatBot() {
         {/* Welcome message that disappears when chat starts */}
         {showWelcome && chatList.length === 0 ? (
           <View style={styles.welcomeContainer}>
+            <Image
+              source={require("@/assets/images/icon.png")}
+              style={{ width: 150, height: 150 }}
+            />
             <Text style={styles.welcomeTitle}>Selamat Datang!</Text>
             <Text style={styles.welcomeMessage}>
               Halo {user ? user : "Pengguna"}, saya siap membantu menjawab
