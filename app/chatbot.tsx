@@ -331,8 +331,6 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     borderRadius: 75,
-    borderWidth: 4,
-    borderColor: Colors.light.border_color,
     backgroundColor: "#fff",
     zIndex: 1,
   },
