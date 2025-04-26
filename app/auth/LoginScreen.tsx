@@ -20,6 +20,9 @@ import * as SplashScreen from "expo-splash-screen";
 SplashScreen.preventAutoHideAsync();
 
 export default function LoginScreen() {
+  const externalLinkIcon = (
+    <Icon name="external-link" size={20} color={Colors.light.text} />
+  );
   const router = useRouter();
   const [loaded, error] = useCustomFonts();
   const [username, setUsername] = useState("");
@@ -129,13 +132,15 @@ export default function LoginScreen() {
           onPress={handleLogin}
         />
 
-        <View style={{ alignItems: "center", marginTop: 30 }}>
-          <TouchableOpacity onPress={() => router.push("/not-found")}>
-            <Text style={styles.signupText}>
-              Belum punya akun?{" "}
-              <Text style={styles.signupLink}>Daftar di sini</Text>
-            </Text>
-          </TouchableOpacity>
+        <View style={{ alignItems: "center", marginTop: 35 }}>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={styles.signupText}>Belum punya akun? </Text>
+            <TouchableOpacity onPress={() => router.push("/not-found")}>
+              <Text style={styles.signupLink}>
+                Daftar di sini {externalLinkIcon}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>
@@ -199,6 +204,7 @@ const styles = StyleSheet.create({
     fontFamily: "Outfit-Regular",
   },
   signupLink: {
+    fontSize: 16,
     color: Colors.light.border_color,
     fontWeight: "bold",
     fontFamily: "Outfit-Medium",
