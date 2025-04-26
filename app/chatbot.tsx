@@ -138,11 +138,7 @@ export default function ChatBot() {
               />
             </View>
 
-            <Text style={styles.welcomeTitle}>Selamat Datang!</Text>
-            <Text style={styles.welcomeMessage}>
-              Halo {user ? user : "Pengguna"}, saya siap membantu menjawab
-              pertanyaan Anda.
-            </Text>
+            <Text style={styles.welcomeTitle}>Selamat Datang {user ? user : "Pengguna"}</Text>
             <Text style={styles.welcomeHint}>
               Silahkan ketik pertanyaan Anda di kolom bawah.
             </Text>
@@ -211,13 +207,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: Colors.light.text,
     fontFamily: "Outfit-Bold",
-    textAlign: "center",
-  },
-  welcomeMessage: {
-    fontSize: 20,
-    marginBottom: 15,
-    color: Colors.light.text,
-    fontFamily: "Outfit-Medium",
     textAlign: "center",
   },
   welcomeHint: {
