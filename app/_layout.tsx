@@ -1,9 +1,23 @@
+import { useEffect } from "react";
 import { Stack } from "expo-router/stack";
 import { Colors } from "@/constant/Color";
-import { View, Text } from "react-native";
 import useCustomFonts from "@/hooks/useCustomFonts";
+import * as SplashScreen from "expo-splash-screen";
+import CustomHeader from "@/components/CustomHeader";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
+  const [loaded, error] = useCustomFonts();
+  useEffect(() => {
+    if (loaded || error) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded, error]);
+
+  if (!loaded && !error) {
+    return null;
+  }
   return (
     <Stack>
       <Stack.Screen
@@ -11,31 +25,7 @@ export default function Layout() {
         options={{
           title: "",
           headerShown: true,
-          header: () => (
-            <View
-              style={{
-                backgroundColor: Colors.light.yellow_background,
-                paddingTop: 20,
-                paddingBottom: 20,
-                borderBottomWidth: 4,
-                borderBottomColor: "#6a6054",
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.8,
-                shadowRadius: 5,
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 20,
-                  color: Colors.light.text,
-                  textAlign: "center",
-                  fontFamily: 'Outfit-Medium',
-                }}
-              >
-                Chatbot
-              </Text>
-            </View>
-          ),
+          header: () => <CustomHeader title="Chatbot" />,
         }}
       />
       <Stack.Screen
