@@ -24,7 +24,14 @@ export default function LoginScreen() {
   const externalLinkIcon = (
     <Icon name="external-link" size={20} color={Colors.light.text} />
   );
-  const { setUser, setProfileImage } = useUser();
+  const {
+    setUser,
+    setName,
+    setProfileImage,
+    setEmail,
+    setPhoneNumber,
+    setBirthDate,
+  } = useUser();
   const router = useRouter();
   const [loaded, error] = useCustomFonts();
   const [username, setUsername] = useState("");
@@ -56,10 +63,17 @@ export default function LoginScreen() {
 
     try {
       const data = await loginUser(username, password);
-      setProfileImage(data.image); // Kirim username
-      console.log("Login result:", data.username); // Kirim image ke context
+
+      console.log("Login result:", data.username);
       if (data && data.accessToken) {
-        setUser(data.username);
+        
+        setName(data.firstName); // kirim first name ke context
+        setUser(data.username); // Kirim username ke context
+        setEmail(data.email); // kirim email ke context
+        setPhoneNumber(data.phone); // Kirim phone ke context
+        setBirthDate(data.birthDate); // Kirim birth date ke context
+        setProfileImage(data.image); // Kirim image ke context
+
         Alert.alert(
           "Login Berhasil",
           `Selamat datang, ${data.firstName || data.username}!`,
