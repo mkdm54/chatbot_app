@@ -9,15 +9,38 @@ import {
 import { Colors } from "@/constant/Color";
 
 interface CustomHeaderProps {
-  img?: ImageSourcePropType;
+  img?: ImageSourcePropType; // optional
   title: string;
+  profileImage?: string; // optional
+  username?: string; // optional
 }
 
-const CustomHeader: React.FC<CustomHeaderProps> = ({ title, img }) => {
+const CustomHeader: React.FC<CustomHeaderProps> = ({
+  title,
+  img,
+  profileImage,
+  username,
+}) => {
   return (
     <View style={styles.container}>
       {img && <Image source={img} style={styles.image} resizeMode="contain" />}
+
       <Text style={styles.titleText}>{title}</Text>
+
+      {/* This line is problematic - it always shows "Bot" */}
+      {username && <Text style={styles.usernameText}>{username}</Text>}
+
+      {profileImage && (
+        <Image
+          source={
+            profileImage
+              ? { uri: profileImage }
+              : require("@/assets/images/icon.png")
+          }
+          style={styles.profileImage}
+          resizeMode="cover"
+        />
+      )}
     </View>
   );
 };
@@ -49,5 +72,16 @@ const styles = StyleSheet.create({
     color: Colors.light.text,
     textAlign: "center",
     fontFamily: "Outfit-Bold",
+  },
+  usernameText: {
+    fontSize: 14,
+    color: Colors.light.text,
+    marginLeft: 10,
+  },
+  profileImage: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    marginLeft: 10,
   },
 });
