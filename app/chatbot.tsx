@@ -119,14 +119,24 @@ export default function ChatBot() {
         {/* Welcome message that disappears when chat starts */}
         {showWelcome && chatList.length === 0 ? (
           <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                profileImage
-                  ? { uri: profileImage }
-                  : require("@/assets/images/icon.png")
-              }
-              style={{ width: 150, height: 150, borderRadius: 75 }}
-            />
+            <View style={styles.profileShadowWrapper}>
+              <Image
+                source={
+                  profileImage
+                    ? { uri: profileImage }
+                    : require("@/assets/images/icon.png")
+                }
+                style={[styles.profileImageShadow, {tintColor: Colors.light.shadow_color }]}
+              />
+              <Image
+                source={
+                  profileImage
+                    ? { uri: profileImage }
+                    : require("@/assets/images/icon.png")
+                }
+                style={styles.profileImage}
+              />
+            </View>
 
             <Text style={styles.welcomeTitle}>Selamat Datang!</Text>
             <Text style={styles.welcomeMessage}>
@@ -297,6 +307,33 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 10,
     minWidth: 50,
     height: "100%",
+    zIndex: 1,
+  },
+  profileShadowWrapper: {
+    position: "relative",
+    width: 150,
+    height: 150,
+    marginBottom: 15,
+  },
+  profileImageShadow: {
+    position: "absolute",
+    top: 8,
+    left: 8,
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    borderWidth: 4,
+    borderColor: Colors.light.shadow_color,
+    backgroundColor: Colors.light.shadow_color,
+    zIndex: 0,
+  },
+  profileImage: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    borderWidth: 4,
+    borderColor: Colors.light.border_color,
+    backgroundColor: "#fff",
     zIndex: 1,
   },
 });
