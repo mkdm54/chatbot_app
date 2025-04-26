@@ -3,15 +3,20 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 interface UserContextType {
   user: string;
   setUser: (user: string) => void;
+  profileImage: string;
+  setProfileImage: (image: string) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState("");
+  const [profileImage, setProfileImage] = useState("");
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider
+      value={{ user, setUser, profileImage, setProfileImage }}
+    >
       {children}
     </UserContext.Provider>
   );

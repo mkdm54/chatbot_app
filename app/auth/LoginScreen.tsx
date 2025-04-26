@@ -24,7 +24,7 @@ export default function LoginScreen() {
   const externalLinkIcon = (
     <Icon name="external-link" size={20} color={Colors.light.text} />
   );
-  const { setUser } = useUser();
+  const { setUser, setProfileImage } = useUser();
   const router = useRouter();
   const [loaded, error] = useCustomFonts();
   const [username, setUsername] = useState("");
@@ -56,8 +56,8 @@ export default function LoginScreen() {
 
     try {
       const data = await loginUser(username, password);
-      console.log("Login result:", data.username);
-
+      setProfileImage(data.image); // Kirim username
+      console.log("Login result:", data.username); // Kirim image ke context
       if (data && data.accessToken) {
         setUser(data.username);
         Alert.alert(

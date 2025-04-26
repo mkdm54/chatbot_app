@@ -28,7 +28,7 @@ interface ChatMessage {
 }
 
 export default function ChatBot() {
-  const { user } = useUser();
+  const { user, profileImage } = useUser();
   const [text, setText] = useState("");
   const [chatList, setChatList] = useState<ChatMessage[]>([]);
   const [loaded, error] = useCustomFonts();
@@ -120,9 +120,14 @@ export default function ChatBot() {
         {showWelcome && chatList.length === 0 ? (
           <View style={styles.welcomeContainer}>
             <Image
-              source={require("@/assets/images/icon.png")}
-              style={{ width: 150, height: 150 }}
+              source={
+                profileImage
+                  ? { uri: profileImage }
+                  : require("@/assets/images/icon.png")
+              }
+              style={{ width: 150, height: 150, borderRadius: 75 }}
             />
+
             <Text style={styles.welcomeTitle}>Selamat Datang!</Text>
             <Text style={styles.welcomeMessage}>
               Halo {user ? user : "Pengguna"}, saya siap membantu menjawab
