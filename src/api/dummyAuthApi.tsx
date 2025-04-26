@@ -1,3 +1,4 @@
+// Free Fake REST API for Placeholder JSON Data https://dummyjson.com/docs/auth
 export const loginUser = async (username: string, password: string) => {
   console.log("Mencoba login dengan", username, password);
   try {
