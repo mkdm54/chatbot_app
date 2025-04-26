@@ -80,7 +80,7 @@ const BubbleChat = ({ sendPrompt, result }: typeChat) => {
               style={styles.img_style}
               source={require("@/assets/images/icon.png")}
             />
-            <Text style={styles.text}>: {result}</Text>
+            <Text style={styles.text}>{result}</Text>
           </View>
         </View>
       )}
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ccc8c5",
     borderColor: "#ccc8c5",
     position: "absolute",
-    top: 9,
+    top: 7,
     right: 8,
     borderRadius: 10,
     borderTopRightRadius: 0,
