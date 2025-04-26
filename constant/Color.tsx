@@ -1,7 +1,8 @@
 // NEOBRUTALISM COLOR
 export const Colors = {
   light: {
-    red : '#FF4910',
+    red_v1 : '#FF4910',
+    red_v2 : '#FF9AA2',
     yellow_background: "#ffD850",
     aqua_background : "#7DFAFF",
     green_background: "#90EE90",
