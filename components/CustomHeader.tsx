@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Image,
   ImageSourcePropType,
+  TouchableOpacity,
 } from "react-native";
 import { Colors } from "@/constant/Color";
 
@@ -13,6 +14,7 @@ interface CustomHeaderProps {
   title: string;
   profileImage?: string; // optional
   username?: string; // optional
+  onPressUsername?: () => void; // tambahan untuk klik username
 }
 
 const CustomHeader: React.FC<CustomHeaderProps> = ({
@@ -20,26 +22,38 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
   img,
   profileImage,
   username,
+  onPressUsername,
 }) => {
   return (
     <View style={styles.container}>
-      {img && <Image source={img} style={styles.image} resizeMode="contain" />}
+      {/* LEFT SIDE: Icon + Title */}
+      <View style={styles.leftContainer}>
+        {img && (
+          <Image source={img} style={styles.image} resizeMode="contain" />
+        )}
+        <Text style={styles.titleText}>{title}</Text>
+      </View>
 
-      <Text style={styles.titleText}>{title}</Text>
-
-      {/* This line is problematic - it always shows "Bot" */}
-      {username && <Text style={styles.usernameText}>{username}</Text>}
-
-      {profileImage && (
-        <Image
-          source={
-            profileImage
-              ? { uri: profileImage }
-              : require("@/assets/images/no-foto.jpg")
-          }
-          style={styles.profileImage}
-          resizeMode="cover"
-        />
+      {/* RIGHT SIDE: Username + Profile Image */}
+      {(username || profileImage) && (
+        <View style={styles.profileContainer}>
+          {username && (
+            <TouchableOpacity onPress={onPressUsername}>
+              <Text style={styles.usernameText}>{username}</Text>
+            </TouchableOpacity>
+          )}
+          {profileImage && (
+            <Image
+              source={
+                profileImage
+                  ? { uri: profileImage }
+                  : require("@/assets/images/no-foto.jpg")
+              }
+              style={styles.profileImage}
+              resizeMode="cover"
+            />
+          )}
+        </View>
       )}
     </View>
   );
@@ -49,39 +63,49 @@ export default CustomHeader;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.light.yellow_background,
+    backgroundColor: "white",
     paddingTop: 20,
     paddingBottom: 15,
+    paddingHorizontal: 15,
     borderBottomWidth: 4,
     borderBottomColor: Colors.light.border_color,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 5,
-    alignItems: "center",
     flexDirection: "row",
-    justifyContent: "center",
+    alignItems: "center",
+    justifyContent: "space-between", // <--- ini kunci, antara kiri-kanan
+  },
+  leftContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   image: {
     width: 40,
     height: 40,
-    marginBottom: 8,
-    marginRight: 10,
+    marginRight: 8,
   },
   titleText: {
     fontSize: 20,
     color: Colors.light.text,
-    textAlign: "center",
     fontFamily: "Outfit-Bold",
+  },
+  profileContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   usernameText: {
     fontSize: 14,
     color: Colors.light.text,
-    marginLeft: 10,
+    marginRight: 8,
+    textDecorationLine: "underline",
+    fontFamily: "Outfit-Medium",
   },
   profileImage: {
     width: 30,
     height: 30,
     borderRadius: 15,
-    marginLeft: 10,
+    borderWidth: 1,
+    borderColor: Colors.light.border_color,
   },
 });

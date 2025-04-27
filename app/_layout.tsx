@@ -6,6 +6,7 @@ import * as SplashScreen from "expo-splash-screen";
 import CustomHeader from "@/components/CustomHeader";
 import { UserProvider } from "@/context/UserContext";
 import { useUser } from "@/context/UserContext";
+import { router } from "expo-router";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -29,13 +30,10 @@ export default function Layout() {
   );
 }
 
-// Ini komponen baru yang isinya useUser()
 function MainLayout() {
   const { user, profileImage } = useUser();
-  
+
   useEffect(() => {
-    console.log("Current user:", user);
-    console.log("Current profile image:", profileImage);
   }, [user, profileImage]);
 
   return (
@@ -50,6 +48,9 @@ function MainLayout() {
               img={require("@/assets/images/icon.png")}
               username={user}
               profileImage={profileImage}
+              onPressUsername={() => {
+                router.push("/profile/detail");
+              }}
             />
           ),
         }}
