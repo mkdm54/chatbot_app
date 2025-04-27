@@ -35,7 +35,7 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
           source={
             profileImage
               ? { uri: profileImage }
-              : require("@/assets/images/icon.png")
+              : require("@/assets/images/no-foto.jpg")
           }
           style={styles.profileImage}
           resizeMode="cover"
