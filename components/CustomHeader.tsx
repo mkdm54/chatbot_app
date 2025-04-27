@@ -47,7 +47,7 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
               source={
                 profileImage
                   ? { uri: profileImage }
-                  : require("@/assets/images/no-foto.jpg")
+                  : require("@/assets/images/default-profile.png")
               }
               style={styles.profileImage}
               resizeMode="cover"
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between", // <--- ini kunci, antara kiri-kanan
+    justifyContent: "space-between",
   },
   leftContainer: {
     flexDirection: "row",

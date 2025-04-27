@@ -124,7 +124,7 @@ export default function ChatBot() {
                 source={
                   profileImage
                     ? { uri: profileImage }
-                    : require("@/assets/images/no-foto.jpg")
+                    : require("@/assets/images/default-profile.png")
                 }
                 style={[styles.profileImageShadow, {tintColor: Colors.light.shadow_color }]}
               />
