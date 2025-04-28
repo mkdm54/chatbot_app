@@ -53,15 +53,6 @@ const ProfileScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <Ionicons name="arrow-back" size={24} color={Colors.light.text} />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>My Profile</Text>
-        <View style={{ width: 24 }} />
-      </View>
-
       {/* Profile Picture */}
       <View style={styles.profileSection}>
         <View style={styles.profileImageContainer}>
@@ -77,10 +68,7 @@ const ProfileScreen = () => {
             <Feather name="camera" size={20} color="black" />
           </TouchableOpacity>
         </View>
-
-        {/* Logout Button with 3D Effect */}
         <View style={styles.logoutButtonContainer}>
-          {/* Shadow/Duplicate Layer */}
           <View style={styles.logoutButtonShadow}>
             <Ionicons
               name="log-out-outline"
@@ -92,7 +80,6 @@ const ProfileScreen = () => {
               Logout
             </Text>
           </View>
-
           {/* Main Button Layer */}
           <TouchableOpacity
             style={styles.logoutButton}
@@ -105,18 +92,28 @@ const ProfileScreen = () => {
               color="white"
               style={styles.logoutIcon}
             />
-            <Text style={styles.logoutText}>Logout</Text>
+            <Text style={styles.logoutText}>Keluar</Text>
           </TouchableOpacity>
         </View>
       </View>
 
-      {/* Information Form */}
-      <View style={styles.infoContainer}>
-        <InfoItem icon="person" label="Name" value={name} />
-        <InfoItem icon="person-outline" label="Username" value={user} />
-        <InfoItem icon="email" label="Email id" value={email} />
-        <InfoItem icon="call" label="Phone number" value={phoneNumber} />
-        <InfoItem icon="calendar-today" label="Birth Date" value={birthDate} />
+      <View style={styles.infoContainerWrapper}>
+        {/* Shadow/Duplicate Layer */}
+        <View style={styles.infoContainerShadow}>
+          {/* Empty duplicate container for shadow effect */}
+        </View>
+        {/* Main Info Container */}
+        <View style={styles.infoContainer}>
+          <InfoItem icon="person" label="Nama" value={name} />
+          <InfoItem icon="person-outline" label="Nama Pengguna" value={user} />
+          <InfoItem icon="email" label="Email" value={email} />
+          <InfoItem icon="call" label="Nomor Telepon" value={phoneNumber} />
+          <InfoItem
+            icon="calendar-today"
+            label="Tanggal Lahir"
+            value={birthDate}
+          />
+        </View>
       </View>
     </ScrollView>
   );
@@ -155,21 +152,10 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingHorizontal: 20,
   },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 20,
-    marginBottom: 20,
-    justifyContent: "space-between",
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: Colors.light.text,
-  },
   profileSection: {
     alignItems: "center",
     marginBottom: 30,
+    marginTop: 30,
   },
   profileImageContainer: {
     position: "relative",
@@ -240,14 +226,35 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Outfit-Medium",
   },
+  infoContainerWrapper: {
+    position: "relative",
+    marginBottom: 20,
+    width: "100%",
+    height: 400,
+  },
+  infoContainerShadow: {
+    position: "absolute",
+    backgroundColor: Colors.light.shadow_color,
+    borderRadius: 12,
+    top: 6,
+    left: 6,
+    right: 0,
+    bottom: 0,
+    zIndex: 1,
+  },
   infoContainer: {
+    position: "absolute",
     backgroundColor: "white",
     borderRadius: 12,
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderWidth: 4,
     borderColor: Colors.light.border_color,
-    marginBottom: 20,
+    top: 0,
+    left: 0,
+    right: 6,
+    bottom: 6,
+    zIndex: 2,
   },
   infoItem: {
     marginBottom: 20,
