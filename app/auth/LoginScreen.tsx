@@ -63,16 +63,32 @@ export default function LoginScreen() {
 
     try {
       const data = await loginUser(username, password);
+      const userId = data.id;
 
       console.log("Login result:", data.username);
       if (data && data.accessToken) {
-        
-        setName(data.firstName); // kirim first name ke context
-        setUser(data.username); // Kirim username ke context
-        setEmail(data.email); // kirim email ke context
-        setPhoneNumber(data.phone); // Kirim phone ke context
-        setBirthDate(data.birthDate); // Kirim birth date ke context
-        setProfileImage(data.image); // Kirim image ke context
+        setName(data.firstName);
+        setUser(data.username);
+        setEmail(data.email);
+        setProfileImage(data.image);
+
+        try {
+          const userDetailResponse = await fetch(
+            `https://dummyjson.com/users/${userId}`
+          );
+          const userDetail = await userDetailResponse.json();
+
+          setPhoneNumber(userDetail.phone);
+          setBirthDate(userDetail.birthDate);
+
+          console.log(
+            "User detail fetched successfully:",
+            userDetail.phone,
+            userDetail.birthDate
+          );
+        } catch (detailError) {
+          console.error("Error fetching user details:", detailError);
+        }
 
         Alert.alert(
           "Login Berhasil",
