@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
-  Alert,
   TextInput,
   TouchableOpacity,
   BackHandler,
   Image,
   Text,
+  ActivityIndicator,
 } from "react-native";
 import { Colors } from "@/constant/Color";
 import { loginUser } from "@/src/api/dummyAuthApi";
@@ -41,6 +41,7 @@ export default function LoginScreen() {
   const [secureText, setSecureText] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (loaded || error) {
@@ -62,12 +63,12 @@ export default function LoginScreen() {
 
   const startErrorTimeout = () => {
     if (timeoutId) {
-      clearTimeout(timeoutId); // Menghapus timeout lama
+      clearTimeout(timeoutId);
     }
     const id = setTimeout(() => {
       setMessage("");
-      setIsSubmitted(false); // Menandakan input sudah selesai
-    }, 3000); // 3000ms = 3 detik
+      setIsSubmitted(false);
+    }, 3000);
     setTimeoutId(id);
   };
 
@@ -80,12 +81,12 @@ export default function LoginScreen() {
     }
 
     try {
+      setIsLoading(true); // Aktifkan loading
       const data = await loginUser(username, password);
       const userId = data.id;
 
       console.log("Login result:", data.username);
       if (data && data.accessToken) {
-        setMessage("");
         setName(data.firstName);
         setUser(data.username);
         setEmail(data.email);
@@ -102,18 +103,23 @@ export default function LoginScreen() {
         } catch (detailError) {
           console.error("Error fetching user details:", detailError);
         }
-        setMessage("Login berhasil!");
+
+        setMessage("Login berhasil! Mengalihkan ke halaman chatbot...");
+
         setTimeout(() => {
+          setIsLoading(false); // Matikan loading
           setIsSubmitted(false);
           router.push("/chatbot");
         }, 2000);
       } else {
+        setIsLoading(false);
         setMessage(
           "Login Gagal, mohon periksa nama pengguna dan password Anda."
         );
         startErrorTimeout();
       }
     } catch (error) {
+      setIsLoading(false);
       setMessage("Terjadi kesalahan saat login.");
       startErrorTimeout();
     }
@@ -175,11 +181,12 @@ export default function LoginScreen() {
         {isSubmitted && message && (
           <CustomMessage
             message={message}
-            type={message === "Login berhasil!" ? "success" : "error"}
+            type={message.includes("berhasil") ? "success" : "error"}
+            isLoading={isLoading}
           />
         )}
         <Button
-          title="Masuk"
+          title={isLoading ? "Memproses..." : "Masuk"}
           style={styles.button_component_style}
           onPress={handleLogin}
         />

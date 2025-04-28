@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { View, Text } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import useCustomFonts from "@/hooks/useCustomFonts";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -7,10 +7,15 @@ SplashScreen.preventAutoHideAsync();
 
 interface MessageProps {
   message?: string;
-  type?: "error" | "success"; // Menambahkan tipe pesan
+  type?: "error" | "success";
+  isLoading?: boolean;
 }
 
-const CustomMessage = ({ message, type = "error" }: MessageProps) => {
+const CustomMessage = ({
+  message,
+  type = "error",
+  isLoading = false,
+}: MessageProps) => {
   const [loaded, error] = useCustomFonts();
 
   if (!message) return null;
@@ -26,7 +31,7 @@ const CustomMessage = ({ message, type = "error" }: MessageProps) => {
   }
 
   // Menentukan warna berdasarkan tipe pesan
-  const backgroundColor = type === "success" ? "#e0f7e0" : "#ffcccc";
+  const backgroundColor = type === "success" ? "#9FF79FFF" : "#ffcccc";
   const textColor = type === "success" ? "#28a745" : "#cc0000";
 
   return (
@@ -38,8 +43,16 @@ const CustomMessage = ({ message, type = "error" }: MessageProps) => {
         marginVertical: 5,
         alignItems: "center",
         justifyContent: "center",
+        flexDirection: "row",
       }}
     >
+      {isLoading && (
+        <ActivityIndicator
+          size="small"
+          color={textColor}
+          style={{ marginRight: 8 }}
+        />
+      )}
       <Text
         style={{
           color: textColor,
