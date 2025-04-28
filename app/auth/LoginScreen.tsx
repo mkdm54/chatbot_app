@@ -17,6 +17,7 @@ import { Button } from "@/components/Button";
 import useCustomFonts from "@/hooks/useCustomFonts";
 import * as SplashScreen from "expo-splash-screen";
 import { useUser } from "@/context/UserContext";
+import ErrorMessage from "@/components/ErrorMessage";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -34,9 +35,12 @@ export default function LoginScreen() {
   } = useUser();
   const router = useRouter();
   const [loaded, error] = useCustomFonts();
+  const [errorMessage, setErrorMessage] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [secureText, setSecureText] = useState(true);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (loaded || error) {
@@ -56,9 +60,23 @@ export default function LoginScreen() {
     return () => backHandler.remove();
   }, []);
 
+  const startErrorTimeout = () => {
+    if (timeoutId) {
+      clearTimeout(timeoutId); // Menghapus timeout lama
+    }
+    const id = setTimeout(() => {
+      setErrorMessage("");
+      setIsSubmitted(false); // Menandakan input sudah selesai
+    }, 3000); // 3000ms = 3 detik
+    setTimeoutId(id);
+  };
+
   const handleLogin = async () => {
+    setIsSubmitted(true);
     if (!username.trim() || !password.trim()) {
-      return Alert.alert("Error", "Username dan password tidak boleh kosong");
+      setErrorMessage("Username dan password tidak boleh kosong");
+      startErrorTimeout();
+      return;
     }
 
     try {
@@ -67,6 +85,8 @@ export default function LoginScreen() {
 
       console.log("Login result:", data.username);
       if (data && data.accessToken) {
+        setErrorMessage("");
+        setIsSubmitted(false);
         setName(data.firstName);
         setUser(data.username);
         setEmail(data.email);
@@ -80,12 +100,6 @@ export default function LoginScreen() {
 
           setPhoneNumber(userDetail.phone);
           setBirthDate(userDetail.birthDate);
-
-          console.log(
-            "User detail fetched successfully:",
-            userDetail.phone,
-            userDetail.birthDate
-          );
         } catch (detailError) {
           console.error("Error fetching user details:", detailError);
         }
@@ -96,13 +110,14 @@ export default function LoginScreen() {
           [{ text: "OK", onPress: () => router.push("/chatbot") }]
         );
       } else {
-        Alert.alert(
-          "Login Gagal",
-          data.error || "Periksa kembali username dan password"
+        setErrorMessage(
+          "Login Gagal, mohon periksa nama pengguna dan password Anda."
         );
+        startErrorTimeout();
       }
     } catch (error) {
-      Alert.alert("Error", "Terjadi kesalahan saat login");
+      setErrorMessage("Terjadi kesalahan saat login.");
+      startErrorTimeout();
     }
   };
 
@@ -158,6 +173,8 @@ export default function LoginScreen() {
             />
           </TouchableOpacity>
         </View>
+
+        {isSubmitted && errorMessage && <ErrorMessage message={errorMessage} />}
 
         <Button
           title="Masuk"
