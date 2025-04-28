@@ -17,7 +17,7 @@ import { Button } from "@/components/Button";
 import useCustomFonts from "@/hooks/useCustomFonts";
 import * as SplashScreen from "expo-splash-screen";
 import { useUser } from "@/context/UserContext";
-import ErrorMessage from "@/components/ErrorMessage";
+import CustomMessage from "@/components/CustomMessage";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -35,7 +35,7 @@ export default function LoginScreen() {
   } = useUser();
   const router = useRouter();
   const [loaded, error] = useCustomFonts();
-  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [secureText, setSecureText] = useState(true);
@@ -65,7 +65,7 @@ export default function LoginScreen() {
       clearTimeout(timeoutId); // Menghapus timeout lama
     }
     const id = setTimeout(() => {
-      setErrorMessage("");
+      setMessage("");
       setIsSubmitted(false); // Menandakan input sudah selesai
     }, 3000); // 3000ms = 3 detik
     setTimeoutId(id);
@@ -74,7 +74,7 @@ export default function LoginScreen() {
   const handleLogin = async () => {
     setIsSubmitted(true);
     if (!username.trim() || !password.trim()) {
-      setErrorMessage("Username dan password tidak boleh kosong");
+      setMessage("Username dan password tidak boleh kosong");
       startErrorTimeout();
       return;
     }
@@ -85,8 +85,7 @@ export default function LoginScreen() {
 
       console.log("Login result:", data.username);
       if (data && data.accessToken) {
-        setErrorMessage("");
-        setIsSubmitted(false);
+        setMessage("");
         setName(data.firstName);
         setUser(data.username);
         setEmail(data.email);
@@ -103,20 +102,19 @@ export default function LoginScreen() {
         } catch (detailError) {
           console.error("Error fetching user details:", detailError);
         }
-
-        Alert.alert(
-          "Login Berhasil",
-          `Selamat datang, ${data.firstName || data.username}!`,
-          [{ text: "OK", onPress: () => router.push("/chatbot") }]
-        );
+        setMessage("Login berhasil!");
+        setTimeout(() => {
+          setIsSubmitted(false);
+          router.push("/chatbot");
+        }, 2000);
       } else {
-        setErrorMessage(
+        setMessage(
           "Login Gagal, mohon periksa nama pengguna dan password Anda."
         );
         startErrorTimeout();
       }
     } catch (error) {
-      setErrorMessage("Terjadi kesalahan saat login.");
+      setMessage("Terjadi kesalahan saat login.");
       startErrorTimeout();
     }
   };
@@ -174,8 +172,12 @@ export default function LoginScreen() {
           </TouchableOpacity>
         </View>
 
-        {isSubmitted && errorMessage && <ErrorMessage message={errorMessage} />}
-
+        {isSubmitted && message && (
+          <CustomMessage
+            message={message}
+            type={message === "Login berhasil!" ? "success" : "error"}
+          />
+        )}
         <Button
           title="Masuk"
           style={styles.button_component_style}
