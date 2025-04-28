@@ -33,8 +33,7 @@ export default function Layout() {
 function MainLayout() {
   const { user, profileImage } = useUser();
 
-  useEffect(() => {
-  }, [user, profileImage]);
+  useEffect(() => {}, [user, profileImage]);
 
   return (
     <Stack>
@@ -58,6 +57,13 @@ function MainLayout() {
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="auth/LoginScreen" options={{ headerShown: false }} />
       <Stack.Screen name="not-found" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="profile/detail"
+        options={{
+          title: "Profile",
+          
+        }}
+      />
     </Stack>
   );
 }
