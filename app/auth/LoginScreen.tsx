@@ -104,7 +104,7 @@ export default function LoginScreen() {
           console.error("Error fetching user details:", detailError);
         }
 
-        setMessage("Login berhasil! Mengalihkan ke halaman chatbot...");
+        setMessage("Login berhasil....");
 
         setTimeout(() => {
           setIsLoading(false); // Matikan loading
