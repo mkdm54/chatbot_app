@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   usernameText: {
-    fontSize: 14,
+    fontSize: 16,
     color: Colors.light.text,
     marginRight: 8,
     textDecorationLine: "underline",
