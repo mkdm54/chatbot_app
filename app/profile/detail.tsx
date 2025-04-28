@@ -88,12 +88,14 @@ const ProfileScreen = () => {
               color="transparent"
               style={styles.logoutIcon}
             />
-            <Text style={[styles.logoutText, { color: 'transparent' }]}>Logout</Text>
+            <Text style={[styles.logoutText, { color: "transparent" }]}>
+              Logout
+            </Text>
           </View>
-          
+
           {/* Main Button Layer */}
-          <TouchableOpacity 
-            style={styles.logoutButton} 
+          <TouchableOpacity
+            style={styles.logoutButton}
             onPress={handleLogout}
             activeOpacity={0.7}
           >
@@ -115,15 +117,6 @@ const ProfileScreen = () => {
         <InfoItem icon="email" label="Email id" value={email} />
         <InfoItem icon="call" label="Phone number" value={phoneNumber} />
         <InfoItem icon="calendar-today" label="Birth Date" value={birthDate} />
-      </View>
-
-      {/* Terms and Privacy */}
-      <View style={styles.bottomText}>
-        <Text style={styles.bottomLinkText}>
-          Read all <Text style={styles.link}>Terms of Condition</Text>
-          <Text> And </Text>
-          <Text style={styles.link}>Privacy Policy</Text>
-        </Text>
       </View>
     </ScrollView>
   );
@@ -200,12 +193,12 @@ const styles = StyleSheet.create({
     borderColor: Colors.light.border_color,
   },
   logoutButtonContainer: {
-    position: 'relative',
+    position: "relative",
     width: 140,
-    height:55,
+    height: 55,
   },
   logoutButtonShadow: {
-    position: 'absolute',
+    position: "absolute",
     flexDirection: "row",
     backgroundColor: Colors.light.shadow_color || "#CCCCCC",
     paddingVertical: 10,
@@ -222,7 +215,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   logoutButton: {
-    position: 'absolute',
+    position: "absolute",
     flexDirection: "row",
     backgroundColor: "#FF3B30",
     paddingVertical: 10,
@@ -281,17 +274,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: Colors.light.text,
     fontFamily: "Outfit-Medium",
-  },
-  bottomText: {
-    alignItems: "center",
-    marginBottom: 30,
-  },
-  bottomLinkText: {
-    fontSize: 12,
-    color: "gray",
-  },
-  link: {
-    color: "#0B5FFF",
-    textDecorationLine: "underline",
   },
 });
