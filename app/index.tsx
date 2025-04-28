@@ -65,5 +65,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 35,
     flexWrap: "wrap",
     fontFamily: "Outfit-Medium",
+    color: Colors.light.text,
   },
 });
