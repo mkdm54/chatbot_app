@@ -6,13 +6,50 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  Alert,
 } from "react-native";
 import { Ionicons, MaterialIcons, Feather } from "@expo/vector-icons";
 import { useUser } from "@/context/UserContext";
 import { Colors } from "@/constant/Color";
+import { router } from "expo-router";
 
 const ProfileScreen = () => {
-  const { name, user, profileImage, email, phoneNumber, birthDate } = useUser();
+  const {
+    name,
+    user,
+    profileImage,
+    email,
+    phoneNumber,
+    birthDate,
+    setUser,
+    setName,
+    setEmail,
+    setProfileImage,
+    setPhoneNumber,
+    setBirthDate,
+  } = useUser();
+
+  const handleLogout = () => {
+    Alert.alert("Konfirmasi Logout", "Apakah Anda yakin ingin keluar?", [
+      { text: "Batal", style: "cancel" },
+      {
+        text: "Logout",
+        style: "destructive",
+        onPress: () => {
+          // Reset semua state di UserContext
+          setUser("");
+          setName("");
+          setEmail("");
+          setProfileImage("");
+          setPhoneNumber("");
+          setBirthDate("");
+
+          // Arahkan ke halaman login
+          router.replace("/auth/LoginScreen");
+        },
+      },
+    ]);
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -40,6 +77,17 @@ const ProfileScreen = () => {
             <Feather name="camera" size={20} color="black" />
           </TouchableOpacity>
         </View>
+
+        {/* Logout Button */}
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+          <Ionicons
+            name="log-out-outline"
+            size={20}
+            color="white"
+            style={styles.logoutIcon}
+          />
+          <Text style={styles.logoutText}>Logout</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Information Form */}
@@ -114,6 +162,7 @@ const styles = StyleSheet.create({
   },
   profileImageContainer: {
     position: "relative",
+    marginBottom: 15,
   },
   profileImage: {
     width: 120,
@@ -131,6 +180,28 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 4,
     borderColor: Colors.light.border_color,
+  },
+  logoutButton: {
+    flexDirection: "row",
+    backgroundColor: "#FF3B30",
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 10,
+    borderWidth: 4,
+    borderColor: Colors.light.border_color,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
+  logoutIcon: {
+    marginRight: 8,
+  },
+  logoutText: {
+    color: "white",
+    fontWeight: "600",
+    fontSize: 16,
+    fontFamily: "Outfit-Medium",
   },
   infoContainer: {
     backgroundColor: "white",
