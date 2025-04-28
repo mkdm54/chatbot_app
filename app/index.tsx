@@ -30,10 +30,10 @@ export default function Index() {
       />
       <Text style={styles.chatbot_title}>nova</Text>
       <Text style={styles.chatbot_description}>
-        Selamat datang! NOVA siap membantu. Click Get Started untuk memulai.
+        Selamat datang! NOVA siap membantu. Click Mulai untuk memulai.
       </Text>
       <Button
-        title="Get Started"
+        title="Mulai"
         style={{ top: 20, alignSelf: "center" }}
         onPress={() => router.push("/auth/LoginScreen")}
       />
