@@ -78,16 +78,34 @@ const ProfileScreen = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Logout Button */}
-        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-          <Ionicons
-            name="log-out-outline"
-            size={20}
-            color="white"
-            style={styles.logoutIcon}
-          />
-          <Text style={styles.logoutText}>Logout</Text>
-        </TouchableOpacity>
+        {/* Logout Button with 3D Effect */}
+        <View style={styles.logoutButtonContainer}>
+          {/* Shadow/Duplicate Layer */}
+          <View style={styles.logoutButtonShadow}>
+            <Ionicons
+              name="log-out-outline"
+              size={20}
+              color="transparent"
+              style={styles.logoutIcon}
+            />
+            <Text style={[styles.logoutText, { color: 'transparent' }]}>Logout</Text>
+          </View>
+          
+          {/* Main Button Layer */}
+          <TouchableOpacity 
+            style={styles.logoutButton} 
+            onPress={handleLogout}
+            activeOpacity={0.7}
+          >
+            <Ionicons
+              name="log-out-outline"
+              size={20}
+              color="white"
+              style={styles.logoutIcon}
+            />
+            <Text style={styles.logoutText}>Logout</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* Information Form */}
@@ -181,7 +199,30 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderColor: Colors.light.border_color,
   },
+  logoutButtonContainer: {
+    position: 'relative',
+    width: 140,
+    height:55,
+  },
+  logoutButtonShadow: {
+    position: 'absolute',
+    flexDirection: "row",
+    backgroundColor: Colors.light.shadow_color || "#CCCCCC",
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 10,
+    borderWidth: 4,
+    borderColor: Colors.light.shadow_color || "#CCCCCC",
+    alignItems: "center",
+    justifyContent: "center",
+    top: 4,
+    left: 4,
+    right: 0,
+    bottom: 0,
+    zIndex: 1,
+  },
   logoutButton: {
+    position: 'absolute',
     flexDirection: "row",
     backgroundColor: "#FF3B30",
     paddingVertical: 10,
@@ -191,8 +232,11 @@ const styles = StyleSheet.create({
     borderColor: Colors.light.border_color,
     alignItems: "center",
     justifyContent: "center",
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
+    zIndex: 2,
+    top: 0,
+    left: 0,
+    right: 4,
+    bottom: 4,
   },
   logoutIcon: {
     marginRight: 8,
